@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const MODELAB: Record<string, string> = {
   client: "Zapytanie klienta",
   b2b: "Propozycja B2B",
@@ -17,6 +15,7 @@ function row(label: string, value: string, bg = false) {
 }
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   let fields: Record<string, string> = {};
   let attachment: { filename: string; content: Buffer } | undefined;
 
