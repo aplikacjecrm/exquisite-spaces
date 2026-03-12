@@ -14,12 +14,12 @@ const PROJECT_IMGS = [
   { img: "/images/4.png", objectPos: "center 60%" },
 ];
 
-const BROCHURES: { lang: Lang; flag: string; label: string; title: string; file: string }[] = [
-  { lang: "pl", flag: "🇵🇱", label: "PL", title: "Exquisite Spaces – Infrastruktura (PL)", file: "/images/Exquisite_Infrastructure PL.pdf" },
-  { lang: "de", flag: "🇩🇪", label: "DE", title: "Exquisite Spaces – Infrastruktur (DE)", file: "/images/Exquisite_Spaces_Infrastructure_Solutions_DE.pdf" },
-  { lang: "fr", flag: "🇫🇷", label: "FR", title: "Exquisite Spaces – Infrastructure (FR)", file: "/images/Exquisite_Spaces_Infrastructure_Engineering_FR.pdf" },
-  { lang: "en", flag: "🇬🇧", label: "EN", title: "Exquisite Spaces – Infrastructure (EN)", file: "/images/Infrastructure_Powerhouse_EN.pdf" },
-  { lang: "nl", flag: "🇳🇱", label: "NL", title: "Exquisite Spaces – Infrastructuur (NL)", file: "/images/Exquisite_Spaces_Infrastructure_NL.pdf" },
+const BROCHURES: { lang: Lang; flag: string; label: string; title: string; file: string; cover: string }[] = [
+  { lang: "pl", flag: "🇵🇱", label: "PL", title: "Exquisite Spaces – Infrastruktura (PL)", file: "/images/Exquisite_Infrastructure PL.pdf", cover: "/images/a1.png" },
+  { lang: "de", flag: "🇩🇪", label: "DE", title: "Exquisite Spaces – Infrastruktur (DE)", file: "/images/Exquisite_Spaces_Infrastructure_Solutions_DE.pdf", cover: "/images/img DE.png" },
+  { lang: "fr", flag: "🇫🇷", label: "FR", title: "Exquisite Spaces – Infrastructure (FR)", file: "/images/Exquisite_Spaces_Infrastructure_Engineering_FR.pdf", cover: "/images/img FR.png" },
+  { lang: "en", flag: "🇬🇧", label: "EN", title: "Exquisite Spaces – Infrastructure (EN)", file: "/images/Infrastructure_Powerhouse_EN.pdf", cover: "/images/img EN.png" },
+  { lang: "nl", flag: "🇳🇱", label: "NL", title: "Exquisite Spaces – Infrastructuur (NL)", file: "/images/Exquisite_Spaces_Infrastructure_NL.pdf", cover: "/images/img NL.png" },
 ];
 
 type Project = { num: string; title: string; category: string; desc: string; img: string; objectPos: string };
@@ -177,12 +177,20 @@ export default function Portfolio() {
           {/* Featured brochure card — thumbnail + meta */}
           <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.04)]">
 
-            {/* Mobile: PDF not supported in iframe on Android → styled card */}
-            <div className="sm:hidden flex flex-col items-center justify-center gap-5 py-10 px-6 bg-zinc-900/60">
-              <span className="text-6xl">{activeBrochure.flag}</span>
-              <div className="text-center">
-                <div className="text-zinc-500 font-mono text-[9px] tracking-[0.4em] uppercase mb-1">{activeBrochure.label}</div>
-                <div className="text-white font-bold text-base leading-snug">{activeBrochure.title}</div>
+            {/* Mobile: PDF not supported in iframe on Android → cover image card */}
+            <div className="sm:hidden relative overflow-hidden h-52">
+              <img
+                src={activeBrochure.cover}
+                alt={activeBrochure.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center gap-3">
+                <span className="text-2xl">{activeBrochure.flag}</span>
+                <div>
+                  <div className="text-zinc-400 font-mono text-[9px] tracking-[0.4em] uppercase">{activeBrochure.label}</div>
+                  <div className="text-white font-bold text-sm leading-snug">{activeBrochure.title}</div>
+                </div>
               </div>
             </div>
 
