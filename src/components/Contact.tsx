@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, Mail, MapPin, Send, Clock, Globe, HardHat, Building2, Users, ArrowLeft, CheckCircle2, ChevronRight, Paperclip } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Clock, Globe, HardHat, Building2, Users, ArrowLeft, CheckCircle2, ChevronRight, Paperclip, X } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -350,9 +350,27 @@ export default function Contact() {
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
                       <Paperclip size={16} className="flex-shrink-0" />
-                      <span className="truncate">{files.length > 0 ? `${files.length} ${t.contact.filesSelected}` : t.contact.attachHint}</span>
+                      <span className="truncate">{t.contact.attachHint}</span>
                       <input type="file" multiple className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => { const sel = Array.from(e.target.files ?? []); setFiles(prev => [...prev, ...sel].slice(0, 10)); e.target.value = ""; }} />
                     </label>
+                    {files.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {files.map((f, i) => (
+                          <div key={`${f.name}-${i}`} className="flex items-center gap-1.5 bg-zinc-100 border border-zinc-200 rounded-lg px-3 py-1.5 text-xs text-zinc-700 max-w-[220px]">
+                            <Paperclip size={11} className="flex-shrink-0 text-zinc-400" />
+                            <span className="truncate font-medium">{f.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => setFiles(prev => prev.filter((_, idx) => idx !== i))}
+                              className="flex-shrink-0 ml-0.5 text-zinc-400 hover:text-red-500 transition-colors"
+                              aria-label="Usuń plik"
+                            >
+                              <X size={12} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
                   <button type="submit" disabled={loading} className="w-full bg-zinc-900 hover:bg-black disabled:bg-zinc-400 text-white py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
@@ -389,9 +407,27 @@ export default function Contact() {
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
                       <Paperclip size={16} className="flex-shrink-0" />
-                      <span className="truncate">{files.length > 0 ? `${files.length} ${t.contact.filesSelected}` : t.contact.attachHint}</span>
+                      <span className="truncate">{t.contact.attachHint}</span>
                       <input type="file" multiple className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => { const sel = Array.from(e.target.files ?? []); setFiles(prev => [...prev, ...sel].slice(0, 10)); e.target.value = ""; }} />
                     </label>
+                    {files.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {files.map((f, i) => (
+                          <div key={`${f.name}-${i}`} className="flex items-center gap-1.5 bg-zinc-100 border border-zinc-200 rounded-lg px-3 py-1.5 text-xs text-zinc-700 max-w-[220px]">
+                            <Paperclip size={11} className="flex-shrink-0 text-zinc-400" />
+                            <span className="truncate font-medium">{f.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => setFiles(prev => prev.filter((_, idx) => idx !== i))}
+                              className="flex-shrink-0 ml-0.5 text-zinc-400 hover:text-red-500 transition-colors"
+                              aria-label="Usuń plik"
+                            >
+                              <X size={12} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
                   <button type="submit" disabled={loading} className="w-full bg-zinc-900 hover:bg-black disabled:bg-zinc-400 text-white py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
@@ -432,9 +468,27 @@ export default function Contact() {
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
                       <Paperclip size={16} className="flex-shrink-0" />
-                      <span className="truncate">{files.length > 0 ? `${files.length} ${t.contact.filesSelected}` : t.contact.attachHint}</span>
+                      <span className="truncate">{t.contact.attachHint}</span>
                       <input type="file" multiple className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => { const sel = Array.from(e.target.files ?? []); setFiles(prev => [...prev, ...sel].slice(0, 10)); e.target.value = ""; }} />
                     </label>
+                    {files.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {files.map((f, i) => (
+                          <div key={`${f.name}-${i}`} className="flex items-center gap-1.5 bg-zinc-100 border border-zinc-200 rounded-lg px-3 py-1.5 text-xs text-zinc-700 max-w-[220px]">
+                            <Paperclip size={11} className="flex-shrink-0 text-zinc-400" />
+                            <span className="truncate font-medium">{f.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => setFiles(prev => prev.filter((_, idx) => idx !== i))}
+                              className="flex-shrink-0 ml-0.5 text-zinc-400 hover:text-red-500 transition-colors"
+                              aria-label="Usuń plik"
+                            >
+                              <X size={12} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
                   <button type="submit" disabled={loading} className="w-full bg-zinc-900 hover:bg-black disabled:bg-zinc-400 text-white py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
