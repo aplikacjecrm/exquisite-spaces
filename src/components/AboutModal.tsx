@@ -76,7 +76,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
   const catImg  = catCfg.imgKey ? imgs[catCfg.imgKey] : null;
 
   const NavBar = () => (
-    <div className="mt-10 flex items-center justify-between gap-4 pt-8 border-t border-zinc-100">
+    <div className="md:hidden mt-10 flex items-center justify-between gap-4 pt-8 border-t border-zinc-100">
       <button
         onClick={() => setActive((i) => Math.max(i - 1, 0))}
         disabled={active === 0}
