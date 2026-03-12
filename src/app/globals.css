@@ -142,3 +142,8 @@ body {
       radial-gradient(circle at 60% 80%, rgba(39, 39, 42, 0.04) 0%, transparent 40%);
   }
 }
+
+/* Hide Navbar when AboutModal is open (prevents hamburger overlapping modal X on mobile) */
+html.about-modal-open nav {
+  display: none !important;
+}
