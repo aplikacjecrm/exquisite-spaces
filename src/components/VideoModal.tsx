@@ -291,9 +291,9 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                   onTimeUpdate={() => setCurrentTime(modalRef.current?.currentTime ?? 0)}
                   onLoadedMetadata={() => setDuration(modalRef.current?.duration ?? 0)}
                 />
-                {!playing && (
+                {!playing && showControls && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-16 h-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/25 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/25 flex items-center justify-center transition-opacity duration-300">
                       <Play size={22} className="fill-white ml-1" />
                     </div>
                   </div>
