@@ -45,7 +45,7 @@ export default function Hero() {
           poster="/images/a1.png"
           muted
           playsInline
-          preload={i === active ? "auto" : "none"}
+          preload={i === active ? "auto" : i === (active + 1) % videos.length ? "metadata" : "none"}
           onEnded={i === active ? handleEnded : undefined}
         />
       ))}

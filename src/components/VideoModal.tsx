@@ -114,7 +114,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
               ref={heroRef}
               src={VIDEOS[heroIdx].src}
               className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-              autoPlay muted loop playsInline
+              autoPlay muted loop playsInline preload="auto"
               onContextMenu={(e) => e.preventDefault()}
             />
             {/* Gradient */}
@@ -165,7 +165,8 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                     <video
                       src={v.src}
                       className="w-full h-full object-cover"
-                      autoPlay muted loop playsInline
+                      autoPlay={isActive} muted loop playsInline
+                      preload={isActive ? "auto" : "none"}
                       onContextMenu={(e) => e.preventDefault()}
                     />
                   </div>
