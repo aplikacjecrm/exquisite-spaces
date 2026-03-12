@@ -123,7 +123,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
           className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
         >
-          <div className="bg-white w-full h-[90vh] sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
+          <div className="bg-white w-full h-screen sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
 
             {/* ── Header ── */}
             <div className="flex items-center justify-between px-5 sm:px-8 py-4 bg-zinc-950 border-b border-zinc-800 flex-shrink-0">
@@ -136,7 +136,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-11 h-11 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+                className="hidden sm:flex w-11 h-11 items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
                 aria-label="Zamknij"
               >
                 <X size={20} />

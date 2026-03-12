@@ -184,13 +184,6 @@ export default function Portfolio() {
                 <div className="text-zinc-500 font-mono text-[9px] tracking-[0.4em] uppercase mb-1">{activeBrochure.label}</div>
                 <div className="text-white font-bold text-base leading-snug">{activeBrochure.title}</div>
               </div>
-              <button
-                onClick={() => setPdfOpen(activeBrochure.file)}
-                className="flex items-center gap-2 bg-white text-zinc-900 hover:bg-zinc-100 px-7 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg"
-              >
-                <Eye size={16} />
-                {t.portfolio.btnPreview}
-              </button>
             </div>
 
             {/* Desktop: iframe PDF preview */}
