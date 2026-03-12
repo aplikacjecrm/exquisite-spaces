@@ -110,7 +110,17 @@ body {
     background-size: 48px 48px;
   }
   .contact-video-height {
-    max-height: 520px;
+    max-height: 380px;
+  }
+  @media (min-width: 640px) {
+    .contact-video-height {
+      max-height: 480px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .contact-video-height {
+      max-height: 580px;
+    }
   }
   .hero-cta-grid {
     background-image:

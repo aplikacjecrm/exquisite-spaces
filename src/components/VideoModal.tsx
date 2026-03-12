@@ -153,8 +153,65 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
           </div>
         )}
 
+        {/* Tablet: stacked layout (640-1023px) */}
+        <div className="hidden sm:flex lg:hidden flex-col gap-4">
+          {/* Hero player — full width on tablet */}
+          <div className="relative rounded-2xl overflow-hidden bg-zinc-950 shadow-[0_8px_48px_rgba(0,0,0,0.6)] group cursor-pointer w-full"
+            onClick={() => setActiveIdx(heroIdx)}
+          >
+            <video
+              key={VIDEOS[heroIdx].src + '-tablet'}
+              src={VIDEOS[heroIdx].src}
+              poster={VIDEOS[heroIdx].poster}
+              className="w-full aspect-video object-contain bg-zinc-950 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+              autoPlay muted loop playsInline preload="auto"
+              onContextMenu={(e) => e.preventDefault()}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+            <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5">
+              <span className="text-xl">{VIDEOS[heroIdx].flag}</span>
+              <span className="text-white font-black text-xs tracking-[0.2em] uppercase">{VIDEOS[heroIdx].lang}</span>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-sm border-2 border-white/50 flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                <Play size={24} className="fill-white ml-1" />
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
+              <div className="text-white font-black text-lg leading-tight">{VIDEOS[heroIdx].title}</div>
+            </div>
+          </div>
+          {/* Horizontal playlist on tablet */}
+          <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-hide">
+            {VIDEOS.map((v, i) => {
+              const isActive = i === heroIdx;
+              return (
+                <button key={v.lang} onClick={() => setHeroIdx(i)}
+                  className={`group relative flex-shrink-0 w-36 rounded-xl overflow-hidden transition-all duration-200 ${
+                    isActive ? "ring-2 ring-white/60 scale-[1.02]" : "opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <div className="w-full h-20">
+                    <video src={v.src} poster={v.poster} className="w-full h-full object-cover"
+                      autoPlay={isActive} muted loop playsInline
+                      preload={isActive ? "auto" : "none"}
+                      onContextMenu={(e) => e.preventDefault()} />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <div className="absolute top-1.5 left-1.5 flex items-center gap-1 bg-black/60 backdrop-blur-sm rounded-full px-2 py-0.5">
+                    <span className="text-xs leading-none">{v.flag}</span>
+                    <span className="text-white font-black text-[8px] tracking-widest">{v.lang}</span>
+                  </div>
+                  {isActive && <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-white animate-pulse" />}
+                </button>
+              );
+            })}
+          </div>
+          {bottomCta && <div className="flex justify-center">{bottomCta}</div>}
+        </div>
+
         {/* Desktop: sidebar playlist layout */}
-        <div className="hidden sm:grid gap-4 grid-cols-[1fr_1fr_260px] items-start">
+        <div className="hidden lg:grid gap-4 grid-cols-[1fr_1fr_260px] items-start">
 
           {/* ── Hero player (left 2 cols) ── */}
           <div className="col-span-2 relative rounded-2xl overflow-hidden bg-zinc-950 shadow-[0_8px_48px_rgba(0,0,0,0.6)] group cursor-pointer"

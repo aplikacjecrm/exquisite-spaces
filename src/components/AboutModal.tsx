@@ -76,7 +76,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
   const catImg  = catCfg.imgKey ? imgs[catCfg.imgKey] : null;
 
   const NavBar = () => (
-    <div className="md:hidden mt-10 flex items-center justify-between gap-4 pt-8 border-t border-zinc-100">
+    <div className="lg:hidden mt-10 flex items-center justify-between gap-4 pt-8 border-t border-zinc-100">
       <button
         onClick={() => setActive((i) => Math.max(i - 1, 0))}
         disabled={active === 0}
@@ -123,7 +123,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
           className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
         >
-          <div className="bg-white w-full h-screen sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
+          <div className="bg-white w-full h-screen sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)] max-w-full">
 
             {/* ── Header ── */}
             <div className="flex items-center justify-between px-5 sm:px-8 py-4 bg-zinc-950 border-b border-zinc-800 flex-shrink-0">
@@ -136,7 +136,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="hidden sm:flex w-11 h-11 items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+                className="hidden lg:flex w-11 h-11 items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
                 aria-label="Zamknij"
               >
                 <X size={20} />
@@ -147,7 +147,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
             <div className="flex flex-1 overflow-hidden">
 
               {/* Sidebar — desktop */}
-              <aside className="hidden md:flex flex-col w-72 border-r border-zinc-100 bg-zinc-50/80 flex-shrink-0 overflow-y-auto scrollbar-hide">
+              <aside className="hidden lg:flex flex-col w-72 border-r border-zinc-100 bg-zinc-50/80 flex-shrink-0 overflow-y-auto scrollbar-hide">
                 <div className="px-5 pt-7 pb-2">
                   <div className="text-zinc-400 font-mono text-[9px] tracking-[0.45em] uppercase">{am.sidebarLabel}</div>
                 </div>
@@ -297,8 +297,8 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
 
                 </div>
 
-                {/* Mobile close button */}
-                <div className="md:hidden sticky bottom-0 bg-white border-t border-zinc-100 px-5 py-4">
+                {/* Mobile + tablet close button */}
+                <div className="lg:hidden sticky bottom-0 bg-white border-t border-zinc-100 px-5 py-4">
                   <button
                     onClick={() => setOpen(false)}
                     className="w-full flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3.5 rounded-2xl text-sm transition-colors"
