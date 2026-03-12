@@ -6,53 +6,48 @@ import { useLanguage } from "../context/LanguageContext";
 
 type Mode = "client" | "b2b" | "career" | null;
 
-const CAREER_QUIZ = [
-  {
-    q: "Jakie masz doświadczenie w budownictwie lub instalacjach?",
-    opts: [
-      { label: "Brak – chcę zacząć od podstaw", score: 1 },
-      { label: "1–2 lata, znam podstawy pracy w terenie", score: 2 },
-      { label: "3–5 lat, pracuję samodzielnie", score: 3 },
-      { label: "5+ lat, zarządzam ludźmi lub projektami", score: 4 },
+type QuizQuestion = { q: string; opts: { label: string; score: number }[] };
+
+function getCareerQuiz(lang: string): QuizQuestion[] {
+  const q: Record<string, QuizQuestion[]> = {
+    pl: [
+      { q: "Jakie masz doświadczenie w budownictwie lub instalacjach?", opts: [{ label: "Brak – chcę zacząć od podstaw", score: 1 }, { label: "1–2 lata, znam podstawy pracy w terenie", score: 2 }, { label: "3–5 lat, pracuję samodzielnie", score: 3 }, { label: "5+ lat, zarządzam ludźmi lub projektami", score: 4 }] },
+      { q: "Czy posiadasz uprawnienia lub certyfikaty zawodowe?", opts: [{ label: "Nie, ale chętnie je zdobędę", score: 1 }, { label: "W trakcie uzyskiwania", score: 2 }, { label: "Tak – certyfikaty branżowe (gaz, SEP, budowlane)", score: 3 }, { label: "Tak – uprawnienia budowlane lub kierownik budowy", score: 4 }] },
+      { q: "Jak reagujesz na zmienne warunki i presję czasu w terenie?", opts: [{ label: "Wolę stały harmonogram i przewidywalne zadania", score: 1 }, { label: "Daję radę, choć wolę spokojniejsze tempo", score: 2 }, { label: "Lubię wyzwania, szybko się adaptuję", score: 3 }, { label: "Zmienność mnie napędza – to mój żywioł", score: 4 }] },
+      { q: "Kiedy możesz zacząć współpracę?", opts: [{ label: "Za 3 miesiące lub więcej", score: 1 }, { label: "Za 1–2 miesiące", score: 2 }, { label: "W ciągu 2–4 tygodni", score: 3 }, { label: "Jestem gotów/a natychmiast", score: 4 }] },
+      { q: "Co najbardziej przyciąga Cię do Exquisite Spaces?", opts: [{ label: "Stabilne zatrudnienie i pewna wypłata", score: 2 }, { label: "Nowoczesny sprzęt i technologie", score: 3 }, { label: "Możliwość awansu i zdobywania uprawnień", score: 3 }, { label: "Budowanie czegoś trwałego – widoczne efekty pracy", score: 4 }] },
     ],
-  },
-  {
-    q: "Czy posiadasz uprawnienia lub certyfikaty zawodowe?",
-    opts: [
-      { label: "Nie, ale chętnie je zdobędę", score: 1 },
-      { label: "W trakcie uzyskiwania", score: 2 },
-      { label: "Tak – certyfikaty branżowe (gaz, SEP, budowlane)", score: 3 },
-      { label: "Tak – uprawnienia budowlane lub kierownik budowy", score: 4 },
+    de: [
+      { q: "Welche Erfahrung haben Sie im Bau- oder Installationsbereich?", opts: [{ label: "Keine – ich möchte von Grund auf anfangen", score: 1 }, { label: "1–2 Jahre, Grundkenntnisse im Außendienst", score: 2 }, { label: "3–5 Jahre, selbstständige Arbeit", score: 3 }, { label: "5+ Jahre, ich leite Menschen oder Projekte", score: 4 }] },
+      { q: "Besitzen Sie berufliche Lizenzen oder Zertifikate?", opts: [{ label: "Nein, aber ich möchte sie erwerben", score: 1 }, { label: "Im Erwerb", score: 2 }, { label: "Ja – Branchenzertifikate (Gas, SEP, Bau)", score: 3 }, { label: "Ja – Baugenehmigungen oder Bauleiter", score: 4 }] },
+      { q: "Wie reagieren Sie auf wechselnde Bedingungen und Zeitdruck im Außendienst?", opts: [{ label: "Ich bevorzuge feste Zeitpläne und vorhersehbare Aufgaben", score: 1 }, { label: "Ich komme zurecht, bevorzuge aber ein ruhigeres Tempo", score: 2 }, { label: "Ich mag Herausforderungen und passe mich schnell an", score: 3 }, { label: "Veränderlichkeit treibt mich an – das ist mein Element", score: 4 }] },
+      { q: "Wann können Sie die Zusammenarbeit beginnen?", opts: [{ label: "In 3 Monaten oder später", score: 1 }, { label: "In 1–2 Monaten", score: 2 }, { label: "In 2–4 Wochen", score: 3 }, { label: "Ich bin sofort bereit", score: 4 }] },
+      { q: "Was zieht Sie am meisten zu Exquisite Spaces?", opts: [{ label: "Stabiler Arbeitsplatz und sicheres Gehalt", score: 2 }, { label: "Moderne Ausrüstung und Technologien", score: 3 }, { label: "Aufstiegsmöglichkeiten und Qualifikationserwerb", score: 3 }, { label: "Etwas Dauerhaftes bauen – sichtbare Ergebnisse", score: 4 }] },
     ],
-  },
-  {
-    q: "Jak reagujesz na zmienne warunki i presję czasu w terenie?",
-    opts: [
-      { label: "Wolę stały harmonogram i przewidywalne zadania", score: 1 },
-      { label: "Daję radę, choć wolę spokojniejsze tempo", score: 2 },
-      { label: "Lubię wyzwania, szybko się adaptuję", score: 3 },
-      { label: "Zmienność mnie napędza – to mój żywioł", score: 4 },
+    en: [
+      { q: "What experience do you have in construction or installations?", opts: [{ label: "None – I want to start from scratch", score: 1 }, { label: "1–2 years, I know the basics of fieldwork", score: 2 }, { label: "3–5 years, I work independently", score: 3 }, { label: "5+ years, I manage people or projects", score: 4 }] },
+      { q: "Do you hold any professional licenses or certifications?", opts: [{ label: "No, but I'm eager to obtain them", score: 1 }, { label: "In the process of obtaining", score: 2 }, { label: "Yes – industry certificates (gas, electrical, construction)", score: 3 }, { label: "Yes – building permits or site manager", score: 4 }] },
+      { q: "How do you handle changing conditions and time pressure in the field?", opts: [{ label: "I prefer a steady schedule and predictable tasks", score: 1 }, { label: "I manage, though I prefer a calmer pace", score: 2 }, { label: "I like challenges and adapt quickly", score: 3 }, { label: "Change drives me – it's my element", score: 4 }] },
+      { q: "When can you start working with us?", opts: [{ label: "In 3 months or more", score: 1 }, { label: "In 1–2 months", score: 2 }, { label: "Within 2–4 weeks", score: 3 }, { label: "I'm ready immediately", score: 4 }] },
+      { q: "What attracts you most to Exquisite Spaces?", opts: [{ label: "Stable employment and a secure salary", score: 2 }, { label: "Modern equipment and technologies", score: 3 }, { label: "Career advancement and license opportunities", score: 3 }, { label: "Building something lasting – visible results", score: 4 }] },
     ],
-  },
-  {
-    q: "Kiedy możesz zacząć współpracę?",
-    opts: [
-      { label: "Za 3 miesiące lub więcej", score: 1 },
-      { label: "Za 1–2 miesiące", score: 2 },
-      { label: "W ciągu 2–4 tygodni", score: 3 },
-      { label: "Jestem gotów/a natychmiast", score: 4 },
+    fr: [
+      { q: "Quelle expérience avez-vous dans la construction ou les installations?", opts: [{ label: "Aucune – je veux commencer de zéro", score: 1 }, { label: "1–2 ans, je connais les bases du travail terrain", score: 2 }, { label: "3–5 ans, je travaille de manière autonome", score: 3 }, { label: "5+ ans, je gère des personnes ou des projets", score: 4 }] },
+      { q: "Possédez-vous des licences ou certifications professionnelles?", opts: [{ label: "Non, mais je suis prêt(e) à les obtenir", score: 1 }, { label: "En cours d'obtention", score: 2 }, { label: "Oui – certifications sectorielles (gaz, électrique, bâtiment)", score: 3 }, { label: "Oui – permis de construire ou chef de chantier", score: 4 }] },
+      { q: "Comment réagissez-vous aux conditions changeantes et à la pression temporelle sur le terrain?", opts: [{ label: "Je préfère un calendrier fixe et des tâches prévisibles", score: 1 }, { label: "Je m'en sors, bien que je préfère un rythme plus calme", score: 2 }, { label: "J'aime les défis et je m'adapte rapidement", score: 3 }, { label: "Le changement me motive – c'est mon élément", score: 4 }] },
+      { q: "Quand pouvez-vous commencer à collaborer?", opts: [{ label: "Dans 3 mois ou plus", score: 1 }, { label: "Dans 1–2 mois", score: 2 }, { label: "Dans 2–4 semaines", score: 3 }, { label: "Je suis prêt(e) immédiatement", score: 4 }] },
+      { q: "Qu'est-ce qui vous attire le plus chez Exquisite Spaces?", opts: [{ label: "Un emploi stable et un salaire sécurisé", score: 2 }, { label: "Un équipement et des technologies modernes", score: 3 }, { label: "Des opportunités de carrière et de licences", score: 3 }, { label: "Construire quelque chose de durable – des résultats visibles", score: 4 }] },
     ],
-  },
-  {
-    q: "Co najbardziej przyciąga Cię do Exquisite Spaces?",
-    opts: [
-      { label: "Stabilne zatrudnienie i pewna wypłata", score: 2 },
-      { label: "Nowoczesny sprzęt i technologie", score: 3 },
-      { label: "Możliwość awansu i zdobywania uprawnień", score: 3 },
-      { label: "Budowanie czegoś trwałego – widoczne efekty pracy", score: 4 },
+    nl: [
+      { q: "Welke ervaring heeft u in de bouw of installaties?", opts: [{ label: "Geen – ik wil van de grond af beginnen", score: 1 }, { label: "1–2 jaar, ik ken de basisprincipes van veldwerk", score: 2 }, { label: "3–5 jaar, ik werk zelfstandig", score: 3 }, { label: "5+ jaar, ik beheer mensen of projecten", score: 4 }] },
+      { q: "Heeft u professionele licenties of certificaten?", opts: [{ label: "Nee, maar ik wil ze graag behalen", score: 1 }, { label: "Bezig met behalen", score: 2 }, { label: "Ja – branchecertificaten (gas, elektrisch, bouw)", score: 3 }, { label: "Ja – bouwvergunningen of uitvoerder", score: 4 }] },
+      { q: "Hoe reageert u op wisselende omstandigheden en tijdsdruk in het veld?", opts: [{ label: "Ik geef de voorkeur aan een vast schema en voorspelbare taken", score: 1 }, { label: "Ik red het, maar geef de voorkeur aan een rustiger tempo", score: 2 }, { label: "Ik hou van uitdagingen en pas mij snel aan", score: 3 }, { label: "Verandering drijft mij – het is mijn element", score: 4 }] },
+      { q: "Wanneer kunt u beginnen met samenwerken?", opts: [{ label: "Over 3 maanden of later", score: 1 }, { label: "Over 1–2 maanden", score: 2 }, { label: "Binnen 2–4 weken", score: 3 }, { label: "Ik ben onmiddellijk beschikbaar", score: 4 }] },
+      { q: "Wat trekt u het meest aan bij Exquisite Spaces?", opts: [{ label: "Stabiele werkgelegenheid en een zeker salaris", score: 2 }, { label: "Moderne apparatuur en technologieën", score: 3 }, { label: "Doorgroeimogelijkheden en het behalen van licenties", score: 3 }, { label: "Iets duurzaams bouwen – zichtbare resultaten", score: 4 }] },
     ],
-  },
-];
+  };
+  return q[lang] ?? q.pl;
+}
 
 const COUNTRY_CODES = [
   { flag: "🇵🇱", code: "+48", name: "PL", placeholder: "600-000-000",  maxDigits: 9  },
@@ -124,7 +119,8 @@ function PhoneInput({ value, onChange, className }: { value: string; onChange: (
 }
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const CAREER_QUIZ = getCareerQuiz(lang);
   const [mode, setMode] = useState<Mode>(null);
   const [quizStep, setQuizStep] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
@@ -470,7 +466,7 @@ export default function Contact() {
             {/* ── SUCCESS ── */}
             {submitted && (
               <div className="p-6 sm:p-10 flex flex-col items-center justify-center text-center min-h-[400px]">
-                <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-zinc-100 text-zinc-500 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle2 size={36} />
                 </div>
                 <h3 className="text-2xl font-black text-slate-900 mb-3">
