@@ -2,10 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
 
+const SUPABASE = "https://yinnyzflmywiplluyyhl.supabase.co/storage/v1/object/public/Film";
+
 const videos = [
-  "/images/video hero 1.mp4",
-  "/images/video hero 2.mp4",
-  "/images/video hero 3.mp4",
+  `${SUPABASE}/video%20hero%201.mp4`,
+  `${SUPABASE}/video%20hero%202.mp4`,
+  `${SUPABASE}/video%20hero%203.mp4`,
 ];
 
 export default function Hero() {

@@ -9,11 +9,11 @@ const LANG_IDX: Record<string, number> = { pl: 0, de: 1, fr: 2, en: 3, nl: 4 };
 const SUPABASE = "https://yinnyzflmywiplluyyhl.supabase.co/storage/v1/object/public/Film";
 
 const VIDEOS = [
-  { lang: "PL", flag: "🇵🇱", src: `${SUPABASE}/Video%20Project%20PL.mp4`, title: "Profesjonalizm od podstaw",           subtitle: "Polski" },
-  { lang: "DE", flag: "🇩🇪", src: `${SUPABASE}/Video%20Project%20DE.mp4`,   title: "Professionalismus von Grund auf",     subtitle: "Deutsch" },
-  { lang: "FR", flag: "🇫🇷", src: `${SUPABASE}/Video%20Project%20FR.mp4`,   title: "Professionnalisme depuis les bases",  subtitle: "Français" },
-  { lang: "EN", flag: "🇬🇧", src: `${SUPABASE}/Video%20Project%20EN.mp4`,   title: "Professionalism from the Ground Up",  subtitle: "English" },
-  { lang: "NL", flag: "🇳🇱", src: `${SUPABASE}/Video%20Project%20NL.mp4`,   title: "Professionalisme van de basis af",    subtitle: "Nederlands" },
+  { lang: "PL", flag: "🇵🇱", src: `${SUPABASE}/Video%20Project%20PL%20hq.mp4`, title: "Profesjonalizm od podstaw",           subtitle: "Polski" },
+  { lang: "DE", flag: "🇩🇪", src: `${SUPABASE}/Video%20Project%20DE%20hq.mp4`,   title: "Professionalismus von Grund auf",     subtitle: "Deutsch" },
+  { lang: "FR", flag: "🇫🇷", src: `${SUPABASE}/Video%20Project%20FR%20hq.mp4`,   title: "Professionnalisme depuis les bases",  subtitle: "Français" },
+  { lang: "EN", flag: "🇬🇧", src: `${SUPABASE}/Video%20Project%20EN%20hq.mp4`,   title: "Professionalism from the Ground Up",  subtitle: "English" },
+  { lang: "NL", flag: "🇳🇱", src: `${SUPABASE}/Video%20Project%20NL%20hq.mp4`,   title: "Professionalisme van de basis af",    subtitle: "Nederlands" },
 ];
 
 export default function VideoModal({ bottomCta }: { bottomCta?: import("react").ReactNode } = {}) {
