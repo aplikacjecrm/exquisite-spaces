@@ -163,4 +163,55 @@ Po naprawkach:  B+  (solidna aplikacja marketingowa)
 
 ---
 
-*Dokument wygenerowany automatycznie na podstawie przeglądu kodu. Commit: `ba15ede`*
+## DODATKOWE USTALENIA (rozszerzony przegląd)
+
+### Repozytorium Git — usunięte duże pliki binarne
+Znaleziono filmiki w git tracking, które **nie powinny być w repozytorium** (zajmują miejsce w historii git, spowalniają klonowanie):
+
+| Plik | Status | Akcja |
+|------|--------|-------|
+| `video hero 1.mp4` | ❌ Był tracked | ✅ `git rm --cached` + gitignore |
+| `video hero 2.mp4` | ❌ Był tracked (Supabase używany) | ✅ `git rm --cached` + gitignore |
+| `video hero 3.mp4` | ❌ Był tracked (usunięty z aplikacji) | ✅ `git rm --cached` + gitignore |
+| `Exquisite_Spaces_Infrastructure.pdf` | ❌ Stary nieużywany plik | ✅ `git rm --cached` + gitignore |
+| `Video Project *` HQ | ✅ Już w gitignore | — |
+
+### npm audit — 9 HIGH severity
+W pakiecie `canvas` → `@mapbox/node-pre-gyp` → `node-tar` znaleziono 9 podatności HIGH (path traversal, symlink poisoning w trakcie ekstrakcji tar).
+
+**Ocena ryzyka produkcyjnego: NISKIE** — webpack alias `config.resolve.alias.canvas = false` wyłącza `canvas` całkowicie. Podatności dotyczą tylko procesu `npm install` (build-time), nie działającego serwera.
+
+**Fix dostępny:** `npm audit fix --force` zainstaluje `react-pdf@10.4.1` (breaking change — wymaga refaktoru API).
+
+### Usunięty nieużywany pakiet
+- ❌ `nodemailer` + `@types/nodemailer` — zainstalowane, nigdzie nieużywane (zastąpione przez Resend)
+- ✅ Usunięte: `npm uninstall nodemailer @types/nodemailer`
+
+### Fałszywe alarmy IDE
+| Ostrzeżenie | Źródło | Ocena |
+|-------------|--------|-------|
+| `@tailwind unknown at-rule` | CSS Language Server | ✅ False positive — Tailwind dyrektywy |
+| `CSS inline styles should not be used` | MS Edge Tools | ✅ Zaakceptowane — dynamiczny `transitionDelay: i * 120ms` wymaga JS |
+
+---
+
+## WYNIK KOŃCOWY AUDYTU
+
+```
+Ocena bezpieczeństwa:  B+
+Stan repozytorium:     A- (po usunięciu dużych plików binarnych)
+Jakość kodu:           B+
+```
+
+### Podsumowanie commit-ów bezpieczeństwa:
+| Commit | Opis |
+|--------|------|
+| `ba15ede` | Rate limiting, XSS fix, file validation, HTTP headers, email regex |
+| `b3743c8` | Dokument audytu |
+| `a549045` | Usunięto nodemailer |
+| `eef4dcf` | Gitignore — hero videos |
+| `(ostatni)` | Usunięto stary PDF z git |
+
+---
+
+*Audyt przeprowadzony: 2026-03-12. Następny przegląd zalecany po wdrożeniu Cloudflare Turnstile.*

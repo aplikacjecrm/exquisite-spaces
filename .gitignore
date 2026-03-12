@@ -56,3 +56,5 @@ next-env.d.ts
 /public/images/video hero 1.mp4
 /public/images/video hero 2.mp4
 /public/images/video hero 3.mp4
+# old/unused PDF files
+/public/images/Exquisite_Spaces_Infrastructure.pdf
