@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "../context/LanguageContext";
+import Analytics from "../components/Analytics";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -26,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="pl" className="scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased`}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <Analytics />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
