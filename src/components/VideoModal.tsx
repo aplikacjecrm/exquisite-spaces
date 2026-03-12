@@ -30,8 +30,11 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration]   = useState(0);
   const [showVolSlider, setShowVolSlider] = useState(false);
-  const modalRef    = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isFullscreen, setIsFullscreen]   = useState(false);
+  const [showControls, setShowControls]   = useState(true);
+  const modalRef       = useRef<HTMLVideoElement>(null);
+  const containerRef   = useRef<HTMLDivElement>(null);
+  const hideTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const open = activeIdx !== null;
   const current = activeIdx !== null ? VIDEOS[activeIdx] : null;
@@ -65,6 +68,18 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [open]);
+
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFsChange);
+    return () => document.removeEventListener("fullscreenchange", onFsChange);
+  }, []);
+
+  const revealControls = () => {
+    setShowControls(true);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setShowControls(false), 3000);
+  };
 
   const toggleMute = () => {
     if (modalRef.current) { modalRef.current.muted = !muted; setMuted(!muted); }
@@ -250,21 +265,24 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
             {/* Video + controls */}
             <div
               ref={containerRef}
-              className={`rounded-2xl overflow-hidden bg-zinc-900 border transition-all duration-300 ${
+              className={`relative rounded-2xl overflow-hidden bg-black border transition-all duration-300 ${
                 activeIdx !== null ? "shadow-[0_0_60px_rgba(255,255,255,0.07)] border-zinc-700/80" : "border-zinc-800/50"
-              }`}
+              } ${isFullscreen ? `flex flex-col justify-center w-full h-full ${showControls ? "cursor-default" : "cursor-none"}` : ""}`}
+              onMouseMove={revealControls}
+              onMouseEnter={revealControls}
               onContextMenu={(e) => e.preventDefault()}
             >
+              {/* Click to play/pause */}
               <div
-                className="relative cursor-pointer"
-                onClick={() => { modalRef.current?.paused ? modalRef.current.play() : modalRef.current?.pause(); }}
-                onDoubleClick={() => { if (document.fullscreenElement) document.exitFullscreen(); }}
+                className={`relative ${isFullscreen ? "flex-1 flex items-center justify-center" : ""}`}
+                onClick={() => { modalRef.current?.paused ? modalRef.current.play() : modalRef.current?.pause(); revealControls(); }}
+                onDoubleClick={() => { document.fullscreenElement ? document.exitFullscreen() : containerRef.current?.requestFullscreen(); }}
               >
                 <video
                   key={current.src}
                   ref={modalRef}
                   src={current.src}
-                  className="w-full aspect-video object-contain bg-black block"
+                  className={`block object-contain bg-black ${isFullscreen ? "w-full h-full max-h-screen" : "w-full aspect-video"}`}
                   playsInline
                   loop
                   onContextMenu={(e) => e.preventDefault()}
@@ -282,14 +300,18 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                 )}
               </div>
 
-              {/* Controls */}
-              <div className="bg-zinc-950/95 px-4 py-3 flex flex-col gap-2">
+              {/* Controls — overlay in fullscreen, bar below in normal */}
+              <div className={`px-4 py-3 flex flex-col gap-2 transition-opacity duration-300 ${
+                isFullscreen
+                  ? `absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent pb-5 pt-10 ${showControls ? "opacity-100" : "opacity-0 pointer-events-none"}`
+                  : "bg-zinc-950/95"
+              }`}>
                 <div className="flex items-center gap-2">
-                  <span className="text-zinc-500 font-mono text-[10px] w-9 text-right flex-shrink-0">{fmt(currentTime)}</span>
+                  <span className="text-zinc-400 font-mono text-[10px] w-9 text-right flex-shrink-0">{fmt(currentTime)}</span>
                   <input type="range" min={0} max={duration || 100} step={0.1} value={currentTime}
                     onChange={(e) => handleSeek(Number(e.target.value))}
                     className="flex-1 h-1.5 rounded-full accent-white cursor-pointer" aria-label="Postęp" />
-                  <span className="text-zinc-500 font-mono text-[10px] w-9 flex-shrink-0">{fmt(duration)}</span>
+                  <span className="text-zinc-400 font-mono text-[10px] w-9 flex-shrink-0">{fmt(duration)}</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
@@ -309,13 +331,14 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                           onChange={(e) => handleVolume(Number(e.target.value))}
                           className="w-full h-1.5 rounded-full accent-white cursor-pointer" />
                       </div>
-                      <span className="hidden sm:block text-zinc-500 font-mono text-[10px] ml-2 w-7">
+                      <span className="hidden sm:block text-zinc-400 font-mono text-[10px] ml-2 w-7">
                         {muted ? "0" : Math.round(volume * 100)}%
                       </span>
                     </div>
                   </div>
                   <span className="hidden sm:block text-zinc-600 font-mono text-[9px] tracking-[0.3em] uppercase">Exquisite Spaces</span>
-                  <button onClick={() => containerRef.current?.requestFullscreen()}
+                  <button
+                    onClick={() => document.fullscreenElement ? document.exitFullscreen() : containerRef.current?.requestFullscreen()}
                     className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
                     <Maximize2 size={15} />
                   </button>
