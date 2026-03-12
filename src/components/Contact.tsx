@@ -335,24 +335,17 @@ export default function Contact() {
                 <h4 className="font-black text-slate-900 text-lg mb-6">{t.contact.submitCareer}</h4>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div><label className={lbl}>{t.contact.nameLabel}</label><input required type="text" className={inp} placeholder="Jan Kowalski" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                    <div><label className={lbl}>{t.contact.nameLabel}</label><input required type="text" className={inp} placeholder={t.contact.phName} value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
                     <div><label className={lbl}>{t.contact.phoneLabel}</label><PhoneInput className={inp} value={formData.phone} onChange={v => setFormData({...formData, phone: v})} /></div>
                   </div>
                   <div><label className={lbl}>{t.contact.emailLabel}</label><input required type="email" className={inp} placeholder="jan@example.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
                   <div><label className={lbl}>{t.contact.positionLabel}</label>
                     <select className={inp} value={formData.position} onChange={e => setFormData({...formData, position: e.target.value})}>
                       <option value="">{t.contact.selectDefaultPosition}</option>
-                      <option>Operator koparki / sprzętu</option>
-                      <option>Monter instalacji gazowych</option>
-                      <option>Monter instalacji wod-kan</option>
-                      <option>Elektryk / uprawnienia SEP</option>
-                      <option>Kierownik robót</option>
-                      <option>Kierownik budowy / inżynier</option>
-                      <option>Kierowca / transport</option>
-                      <option>Inne – opiszę poniżej</option>
+                      {t.contact.positionOpts.map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <div><label className={lbl}>{t.contact.messageLabel}</label><textarea rows={3} className={`${inp} resize-none`} placeholder="Doświadczenie, uprawnienia, dostępność..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></div>
+                  <div><label className={lbl}>{t.contact.messageLabel}</label><textarea rows={3} className={`${inp} resize-none`} placeholder={t.contact.phMsgCareer} value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></div>
                   <div>
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
@@ -380,24 +373,18 @@ export default function Contact() {
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div><label className={lbl}>{t.contact.nameLabel}</label><input required type="text" className={inp} placeholder="Jan Kowalski" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                    <div><label className={lbl}>{t.contact.nameLabel}</label><input required type="text" className={inp} placeholder={t.contact.phName} value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
                     <div><label className={lbl}>{t.contact.phoneLabel}</label><PhoneInput className={inp} value={formData.phone} onChange={v => setFormData({...formData, phone: v})} /></div>
                   </div>
                   <div><label className={lbl}>{t.contact.emailLabel}</label><input required type="email" className={inp} placeholder="jan@example.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
                   <div><label className={lbl}>{t.contact.serviceLabel}</label>
                     <select className={inp} value={formData.service} onChange={e => setFormData({...formData, service: e.target.value})}>
                       <option value="">{t.contact.selectDefaultService}</option>
-                      <option>Sieci gazowe</option>
-                      <option>Sieci wodno-kanalizacyjne</option>
-                      <option>Odwodnienie torowisk / PKP</option>
-                      <option>Sieci telekomunikacyjne</option>
-                      <option>Montaż urządzeń elektrycznych</option>
-                      <option>Roboty ziemne / budowlane</option>
-                      <option>Inne – opiszę poniżej</option>
+                      {t.contact.serviceOpts.map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <div><label className={lbl}>{t.contact.locationLabel}</label><input type="text" className={inp} placeholder="Miasto, województwo..." value={formData.location} onChange={e => setFormData({...formData, location: e.target.value})} /></div>
-                  <div><label className={lbl}>{t.contact.messageLabel}</label><textarea required rows={4} className={`${inp} resize-none`} placeholder="Opisz zakres prac, oczekiwany termin realizacji..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></div>
+                  <div><label className={lbl}>{t.contact.locationLabel}</label><input type="text" className={inp} placeholder={t.contact.phLocation} value={formData.location} onChange={e => setFormData({...formData, location: e.target.value})} /></div>
+                  <div><label className={lbl}>{t.contact.messageLabel}</label><textarea required rows={4} className={`${inp} resize-none`} placeholder={t.contact.phMsgClient} value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></div>
                   <div>
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
@@ -426,25 +413,21 @@ export default function Contact() {
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div><label className={lbl}>{t.contact.companyLabel}</label><input required type="text" className={inp} placeholder="Firma Sp. z o.o." value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} /></div>
+                    <div><label className={lbl}>{t.contact.companyLabel}</label><input required type="text" className={inp} placeholder={t.contact.phCompany} value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} /></div>
                     <div><label className={lbl}>{t.contact.nipLabel}</label><input type="text" className={inp} placeholder="0000000000" value={formData.nip} onChange={e => setFormData({...formData, nip: e.target.value})} /></div>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div><label className={lbl}>{t.contact.nameLabel}</label><input required type="text" className={inp} placeholder="Jan Kowalski" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                    <div><label className={lbl}>{t.contact.nameLabel}</label><input required type="text" className={inp} placeholder={t.contact.phName} value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
                     <div><label className={lbl}>{t.contact.phoneLabel}</label><PhoneInput className={inp} value={formData.phone} onChange={v => setFormData({...formData, phone: v})} /></div>
                   </div>
                   <div><label className={lbl}>{t.contact.emailLabel}</label><input required type="email" className={inp} placeholder="biuro@firma.pl" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
                   <div><label className={lbl}>{t.contact.coopTypeLabel}</label>
                     <select className={inp} value={formData.coopType} onChange={e => setFormData({...formData, coopType: e.target.value})}>
                       <option value="">{t.contact.selectDefaultCoopType}</option>
-                      <option>Podwykonawstwo robót</option>
-                      <option>Dostawca materiałów / sprzętu</option>
-                      <option>Generalny wykonawca – poszukuję podwykonawcy</option>
-                      <option>Współpraca projektowa</option>
-                      <option>Inne</option>
+                      {t.contact.coopTypeOpts.map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <div><label className={lbl}>{t.contact.messageLabel}</label><textarea required rows={4} className={`${inp} resize-none`} placeholder="Opisz zakres i charakter proponowanej współpracy..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></div>
+                  <div><label className={lbl}>{t.contact.messageLabel}</label><textarea required rows={4} className={`${inp} resize-none`} placeholder={t.contact.phMsgB2B} value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></div>
                   <div>
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">

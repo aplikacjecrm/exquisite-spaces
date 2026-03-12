@@ -5,7 +5,7 @@ export interface Dict {
   services: { badge: string; heading: string; subtitle: string; learnMore: string; items: { title: string; desc: string }[] };
   equipment: { badge: string; heading: string; subtitle: string; teamHeading: string; teamDesc: string; machineHeading: string; machineDesc: string; teamRoles: { label: string; desc: string }[]; machines: string[] };
   portfolio: { badge: string; heading: string; headingSub: string; btnAsk: string; docLabel: string; downloadPdf: string; confidential: string; brochuresHeading: string; brochuresSubtitle: string; btnPreview: string; btnDownload: string; projects: { title: string; category: string; desc: string }[] };
-  contact: { badge: string; heading: string; headingSub: string; subtitle: string; labelPhone: string; labelEmailClients: string; labelEmailB2B: string; labelAddress: string; labelHours: string; labelWeb: string; hours1: string; hours2: string; modeTitle: string; modeQuestion: string; modeClient: string; modeClientSub: string; modeB2B: string; modeB2BSub: string; modeCareer: string; modeCareerSub: string; orCall: string; back: string; quizLabel: string; nameLabel: string; emailLabel: string; phoneLabel: string; messageLabel: string; companyLabel: string; nipLabel: string; serviceLabel: string; locationLabel: string; coopTypeLabel: string; positionLabel: string; attachLabel: string; attachHint: string; attachChange: string; btnSend: string; sending: string; successTitle: string; successText: string; sendAnother: string; fitLabel: string; fitHigh: string; fitMed: string; fitLow: string; submitCareer: string; serverError: string; genericError: string; selectDefaultPosition: string; selectDefaultService: string; selectDefaultCoopType: string };
+  contact: { badge: string; heading: string; headingSub: string; subtitle: string; labelPhone: string; labelEmailClients: string; labelEmailB2B: string; labelAddress: string; labelHours: string; labelWeb: string; hours1: string; hours2: string; modeTitle: string; modeQuestion: string; modeClient: string; modeClientSub: string; modeB2B: string; modeB2BSub: string; modeCareer: string; modeCareerSub: string; orCall: string; back: string; quizLabel: string; nameLabel: string; emailLabel: string; phoneLabel: string; messageLabel: string; companyLabel: string; nipLabel: string; serviceLabel: string; locationLabel: string; coopTypeLabel: string; positionLabel: string; attachLabel: string; attachHint: string; attachChange: string; btnSend: string; sending: string; successTitle: string; successText: string; sendAnother: string; fitLabel: string; fitHigh: string; fitMed: string; fitLow: string; submitCareer: string; serverError: string; genericError: string; selectDefaultPosition: string; selectDefaultService: string; selectDefaultCoopType: string; phName: string; phCompany: string; phLocation: string; phMsgClient: string; phMsgB2B: string; phMsgCareer: string; positionOpts: string[]; serviceOpts: string[]; coopTypeOpts: string[] };
   contactVideo: { sectionLabel: string; heading: string; headingSub: string; subtitle: string; labelPhone: string; labelWeb: string; labelClients: string; labelB2B: string; hours: string; address: string; hoursLong: string };
   footer: { description: string; ctaTag: string; ctaHeading1: string; ctaHeading2: string; navLabel: string; servicesLabel: string; copyright: string; formButton: string; services: string[]; navLinks: { href: string; label: string }[] };
   aboutModal: { sidebarLabel: string; contactLabel: string; hoursText: string; prevLabel: string; nextLabel: string; ctaTag: string; ctaHeading: string; ctaContact: string; ctaBtn: string; categories: { tag: string; title: string; subtitle: string; sections: { heading: string; body: string }[] }[] };
@@ -168,6 +168,15 @@ export const pl: Dict = {
     selectDefaultPosition: "Wybierz stanowisko...",
     selectDefaultService: "Wybierz specjalizację...",
     selectDefaultCoopType: "Wybierz rodzaj...",
+    phName: "Jan Kowalski",
+    phCompany: "Firma Sp. z o.o.",
+    phLocation: "Miasto, województwo...",
+    phMsgClient: "Opisz zakres prac, oczekiwany termin realizacji...",
+    phMsgB2B: "Opisz zakres i charakter proponowanej współpracy...",
+    phMsgCareer: "Doświadczenie, uprawnienia, dostępność...",
+    positionOpts: ["Operator koparki / sprzętu", "Monter instalacji gazowych", "Monter instalacji wod-kan", "Elektryk / uprawnienia SEP", "Kierownik robót", "Kierownik budowy / inżynier", "Kierowca / transport", "Inne – opiszę poniżej"],
+    serviceOpts: ["Sieci gazowe", "Sieci wodno-kanalizacyjne", "Odwodnienie torowisk / PKP", "Sieci telekomunikacyjne", "Montaż urządzeń elektrycznych", "Roboty ziemne / budowlane", "Inne – opiszę poniżej"],
+    coopTypeOpts: ["Podwykonawstwo robót", "Dostawca materiałów / sprzętu", "Generalny wykonawca – poszukuję podwykonawcy", "Współpraca projektowa", "Inne"],
   },
   contactVideo: {
     sectionLabel: "KONTAKT",
