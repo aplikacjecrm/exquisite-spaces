@@ -5,47 +5,60 @@ import { ArrowDown } from "lucide-react";
 const SUPABASE = "https://yinnyzflmywiplluyyhl.supabase.co/storage/v1/object/public/Film";
 
 const videos = [
-  `${SUPABASE}/video%20hero%201.mp4`,
   `${SUPABASE}/video%20hero%202.mp4`,
-  `${SUPABASE}/video%20hero%203.mp4`,
+  `/images/kontakt%20video.mp4`,
 ];
 
 export default function Hero() {
   const [active, setActive] = useState(0);
-  const [fading, setFading] = useState(false);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
+  const [incoming, setIncoming] = useState<number | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null]);
 
   useEffect(() => {
-    const vid = videoRefs.current[active];
+    const vid = videoRefs.current[0];
     if (!vid) return;
     vid.currentTime = 0;
     vid.play().catch(() => {});
-  }, [active]);
+  }, []);
+
+  const triggerTransition = (toIdx: number) => {
+    if (incoming !== null) return;
+    const vid = videoRefs.current[toIdx];
+    if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
+    setIncoming(toIdx);
+    setTimeout(() => {
+      setActive(toIdx);
+      setIncoming(null);
+    }, 1200);
+  };
 
   const handleEnded = () => {
-    setFading(true);
-    setTimeout(() => {
-      setActive((i) => (i + 1) % videos.length);
-      setFading(false);
-    }, 800);
+    triggerTransition((active + 1) % videos.length);
+  };
+
+  const getOpacity = (i: number) => {
+    if (incoming !== null) {
+      if (i === incoming) return "opacity-100";
+      if (i === active) return "opacity-0";
+      return "opacity-0";
+    }
+    return i === active ? "opacity-100" : "opacity-0";
   };
 
   return (
     <section className="hero-section relative overflow-hidden">
 
-      {/* Video layers — crossfade */}
+      {/* Video layers — simultaneous crossfade */}
       {videos.map((src, i) => (
         <video
           key={src}
           ref={(el) => { videoRefs.current[i] = el; }}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[800ms] ${
-            i === active ? (fading ? "opacity-0" : "opacity-100") : "opacity-0"
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-in-out ${getOpacity(i)}`}
           src={src}
           poster="/images/a1.png"
           muted
           playsInline
-          preload={i === active ? "auto" : i === (active + 1) % videos.length ? "metadata" : "none"}
+          preload={i === active ? "auto" : "metadata"}
           onEnded={i === active ? handleEnded : undefined}
         />
       ))}
@@ -61,7 +74,7 @@ export default function Hero() {
         {videos.map((_, i) => (
           <button
             key={i}
-            onClick={() => { setFading(true); setTimeout(() => { setActive(i); setFading(false); }, 800); }}
+            onClick={() => triggerTransition(i)}
             className={`h-1 rounded-full transition-all duration-500 ${i === active ? "w-6 bg-white" : "w-2 bg-white/40"}`}
             aria-label={`Wideo ${i + 1}`}
           />
