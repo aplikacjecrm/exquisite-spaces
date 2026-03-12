@@ -118,10 +118,10 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
 
       {open && (
         <div
-          className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4"
+          className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-0 sm:p-6"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
         >
-          <div className="bg-white w-full h-screen sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)] max-w-full">
+          <div className="bg-white w-full h-[100dvh] sm:h-[92dvh] sm:max-w-[90vw] lg:max-w-[1320px] rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.6)] max-w-full">
 
             {/* ── Header ── */}
             <div className="flex items-center justify-between px-5 sm:px-8 py-4 bg-zinc-950 border-b border-zinc-800 flex-shrink-0">
