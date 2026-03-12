@@ -177,21 +177,33 @@ export default function Portfolio() {
           {/* Featured brochure card — thumbnail + meta */}
           <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.04)]">
 
-            {/* Mobile: PDF not supported in iframe on Android → cover image card */}
-            <div className="sm:hidden relative overflow-hidden h-52">
+            {/* Mobile + Tablet: cover image (Android Chrome cannot render PDF in iframe) */}
+            <div className="lg:hidden relative overflow-hidden h-56 sm:h-72">
               <img
                 src={activeBrochure.cover}
                 alt={activeBrochure.title}
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 px-4 py-3">
-                <span className="text-zinc-400 font-mono text-[9px] tracking-[0.4em] uppercase">{activeBrochure.label}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-end justify-between">
+                <div>
+                  <span className="text-zinc-400 font-mono text-[9px] tracking-[0.4em] uppercase block mb-1">{activeBrochure.label}</span>
+                  <span className="text-white font-bold text-sm leading-tight line-clamp-2">{activeBrochure.title}</span>
+                </div>
+                <a
+                  href={activeBrochure.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 ml-3 flex items-center gap-2 bg-white text-zinc-900 px-4 py-2 rounded-xl font-bold text-xs shadow-xl transition-all hover:bg-zinc-100"
+                >
+                  <Eye size={13} />
+                  {t.portfolio.btnPreview}
+                </a>
               </div>
             </div>
 
-            {/* Desktop: iframe PDF preview */}
-            <div className="relative hidden sm:block overflow-hidden" style={{ height: "600px" }}>
+            {/* Desktop only: iframe PDF preview */}
+            <div className="relative hidden lg:block overflow-hidden" style={{ height: "600px" }}>
               <iframe
                 key={activeBrochure.file}
                 src={`${activeBrochure.file}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=75`}
@@ -217,11 +229,20 @@ export default function Portfolio() {
               </div>
               <button
                 onClick={() => setPdfOpen(activeBrochure.file)}
-                className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all border border-zinc-700/60 flex-shrink-0"
+                className="hidden lg:flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all border border-zinc-700/60 flex-shrink-0"
               >
                 <Eye size={13} />
                 {t.portfolio.btnPreview}
               </button>
+              <a
+                href={activeBrochure.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lg:hidden flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all border border-zinc-700/60 flex-shrink-0"
+              >
+                <Eye size={13} />
+                {t.portfolio.btnPreview}
+              </a>
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { X, ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Maximize2, Minimize2, Download, ExternalLink } from "lucide-react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -13,6 +13,7 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(1 / 1.414);
   const [fading, setFading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const pendingPage = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -124,10 +125,21 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
           <div className="text-white font-black text-base tracking-tight">Portfolio</div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-mono text-sm mr-1">
-            <span className="text-white font-bold">{pageNumber}</span>
-            <span className="text-zinc-600"> / {numPages}</span>
-          </span>
+          {!loadError && (
+            <span className="font-mono text-sm mr-1">
+              <span className="text-white font-bold">{pageNumber}</span>
+              <span className="text-zinc-600"> / {numPages}</span>
+            </span>
+          )}
+          <a
+            href={path}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Otwórz / pobierz PDF"
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+          >
+            <ExternalLink size={15} />
+          </a>
           <button
             onClick={toggleFullscreen}
             title={isFullscreen ? UI.exitFs : UI.fullscreen}
@@ -165,9 +177,32 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
           className="shadow-[0_8px_80px_rgba(0,0,0,0.9)] rounded-lg overflow-hidden"
           style={{ opacity: fading ? 0 : 1, transition: "opacity 150ms ease" }}
         >
+          {loadError ? (
+            <div className="flex flex-col items-center justify-center gap-6 px-8 text-center" style={{ width: Math.min(pageWidth || 400, 400), minHeight: 300 }}>
+              <div className="w-16 h-16 rounded-2xl bg-zinc-800 flex items-center justify-center">
+                <Download size={28} className="text-zinc-400" />
+              </div>
+              <div>
+                <div className="text-white font-bold text-lg mb-2">PDF nie załadował się</div>
+                <div className="text-zinc-500 text-sm leading-relaxed mb-6">
+                  Twoja przeglądarka nie obsługuje podglądu PDF.<br />Otwórz lub pobierz plik bezpośrednio.
+                </div>
+                <a
+                  href={path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white text-zinc-900 font-bold px-6 py-3 rounded-xl hover:bg-zinc-100 transition-colors text-sm"
+                >
+                  <ExternalLink size={15} />
+                  Otwórz PDF w nowej karcie
+                </a>
+              </div>
+            </div>
+          ) : (
           <Document
             file={path}
-            onLoadSuccess={({ numPages: n }) => setNumPages(n)}
+            onLoadSuccess={({ numPages: n }) => { setNumPages(n); setLoadError(false); }}
+            onLoadError={() => setLoadError(true)}
             loading={
               <div
                 style={{ width: pageWidth, height: placeholderH }}
@@ -192,6 +227,7 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
               onRenderSuccess={() => setFading(false)}
             />
           </Document>
+          )}
         </div>
 
         {/* Next */}
