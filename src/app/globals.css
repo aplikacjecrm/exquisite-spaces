@@ -4,24 +4,126 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #1E293B;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@keyframes spin-once {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(113, 113, 122, 0); opacity: 1; }
+  50%       { box-shadow: 0 0 0 4px rgba(113, 113, 122, 0.10); opacity: 0.85; }
+}
+
+@keyframes cta-ring {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  70%  { transform: scale(1.18); opacity: 0;   }
+  100% { transform: scale(1.18); opacity: 0;   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .animate-spin-once {
+    animation: spin-once 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .pdf-viewer-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 80vh;
+    min-height: 520px;
+  }
+  .pdf-iframe {
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border: none;
+    display: block;
+  }
+  .bg-grid-pattern {
+    background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .hero-section {
+    height: 60vh;
+    min-height: 380px;
+  }
+  @media (min-width: 640px) {
+    .hero-section {
+      height: 70vh;
+      min-height: 460px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-section {
+      height: 72vh;
+      min-height: 520px;
+    }
+  }
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  .white-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: 0 0;
+  }
+  .footer-grid {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: 0 0;
+  }
+  .contact-video-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .contact-video-height {
+    max-height: 520px;
+  }
+  .hero-cta-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.8) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.8) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-bg {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(24, 24, 27, 0.06) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(63, 63, 70, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 60% 80%, rgba(39, 39, 42, 0.04) 0%, transparent 40%);
   }
 }

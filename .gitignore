@@ -31,6 +31,17 @@ yarn-error.log*
 # vercel
 .vercel
 
+# netlify local cache & deploy artifacts
+.netlify/
+exquisite-spaces-deploy/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large video files — hosted on Supabase Storage
+/public/images/Video My.mp4
+/public/images/Video Project DE.mp4
+/public/images/Video Project EN.mp4
+/public/images/Video Project FR.mp4
+/public/images/Video Project NL.mp4
