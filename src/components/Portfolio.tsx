@@ -16,7 +16,6 @@ const PROJECT_IMGS = [
 
 const BROCHURES: { lang: Lang; flag: string; label: string; title: string; file: string }[] = [
   { lang: "pl", flag: "🇵🇱", label: "PL", title: "Exquisite Spaces – Infrastruktura (PL)", file: "/images/Exquisite_Infrastructure PL.pdf" },
-  { lang: "pl", flag: "🇵🇱", label: "PL", title: "Exquisite Spaces – Infrastructure (PL)", file: "/images/Exquisite_Spaces_Infrastructure.pdf" },
   { lang: "de", flag: "🇩🇪", label: "DE", title: "Exquisite Spaces – Infrastruktur (DE)", file: "/images/Exquisite_Spaces_Infrastructure_Solutions_DE.pdf" },
   { lang: "fr", flag: "🇫🇷", label: "FR", title: "Exquisite Spaces – Infrastructure (FR)", file: "/images/Exquisite_Spaces_Infrastructure_Engineering_FR.pdf" },
   { lang: "en", flag: "🇬🇧", label: "EN", title: "Exquisite Spaces – Infrastructure (EN)", file: "/images/Infrastructure_Powerhouse_EN.pdf" },
