@@ -6,7 +6,7 @@ const SUPABASE = "https://yinnyzflmywiplluyyhl.supabase.co/storage/v1/object/pub
 
 const videos = [
   `${SUPABASE}/video%20hero%202.mp4`,
-  `/images/kontakt%20video.mp4`,
+  `/images/kontakt video.mp4`,
 ];
 
 export default function Hero() {
@@ -58,7 +58,7 @@ export default function Hero() {
           poster="/images/a1.png"
           muted
           playsInline
-          preload={i === active ? "auto" : "metadata"}
+          preload="auto"
           onEnded={i === active ? handleEnded : undefined}
         />
       ))}

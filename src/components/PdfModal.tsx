@@ -50,7 +50,8 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
     if (!containerRef.current) return;
     const r = ratio ?? aspectRatio;
     const h = containerRef.current.clientHeight - 24;
-    const w = containerRef.current.clientWidth - 80;
+    const isMobile = window.innerWidth < 640;
+    const w = containerRef.current.clientWidth - (isMobile ? 32 : 80);
     setPageWidth(Math.min(w, Math.round(h * r)));
   }, [aspectRatio]);
 

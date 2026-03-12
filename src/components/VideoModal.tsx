@@ -70,9 +70,13 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
   }, [open]);
 
   useEffect(() => {
-    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    const onFsChange = () => setIsFullscreen(!!(document.fullscreenElement || (document as any).webkitFullscreenElement));
     document.addEventListener("fullscreenchange", onFsChange);
-    return () => document.removeEventListener("fullscreenchange", onFsChange);
+    document.addEventListener("webkitfullscreenchange", onFsChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFsChange);
+      document.removeEventListener("webkitfullscreenchange", onFsChange);
+    };
   }, []);
 
   const revealControls = () => {
@@ -81,6 +85,21 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
     hideTimer.current = setTimeout(() => setShowControls(false), 3000);
   };
 
+  const enterFullscreen = () => {
+    if (containerRef.current?.requestFullscreen) {
+      containerRef.current.requestFullscreen().catch(() => {});
+    } else if (modalRef.current && (modalRef.current as any).webkitEnterFullscreen) {
+      (modalRef.current as any).webkitEnterFullscreen();
+    }
+  };
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+    else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
+  };
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement || (document as any).webkitFullscreenElement) exitFullscreen();
+    else enterFullscreen();
+  };
   const toggleMute = () => {
     if (modalRef.current) { modalRef.current.muted = !muted; setMuted(!muted); }
   };
@@ -276,7 +295,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
               <div
                 className={`relative ${isFullscreen ? "flex-1 flex items-center justify-center" : ""}`}
                 onClick={() => { modalRef.current?.paused ? modalRef.current.play() : modalRef.current?.pause(); revealControls(); }}
-                onDoubleClick={() => { document.fullscreenElement ? document.exitFullscreen() : containerRef.current?.requestFullscreen(); }}
+                onDoubleClick={toggleFullscreen}
               >
                 <video
                   key={current.src}
@@ -338,7 +357,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                   </div>
                   <span className="hidden sm:block text-zinc-600 font-mono text-[9px] tracking-[0.3em] uppercase">Exquisite Spaces</span>
                   <button
-                    onClick={() => document.fullscreenElement ? document.exitFullscreen() : containerRef.current?.requestFullscreen()}
+                    onClick={toggleFullscreen}
                     className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
                     <Maximize2 size={15} />
                   </button>

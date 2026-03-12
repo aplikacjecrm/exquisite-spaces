@@ -116,10 +116,10 @@ export default function ContactVideo() {
                 <card.icon size={13} className="text-zinc-400 flex-shrink-0" />
                 <span className="text-zinc-500 font-mono text-[9px] tracking-[0.25em] uppercase">{card.label}</span>
               </div>
-              <div className="text-white font-bold text-sm leading-tight group-hover:text-zinc-100 break-all">
+              <div className="text-white font-bold text-xs leading-tight group-hover:text-zinc-100 truncate">
                 {card.line1}
               </div>
-              {card.line2 && <div className="text-zinc-400 text-xs font-mono">{card.line2}</div>}
+              {card.line2 && <div className="text-zinc-400 text-[10px] font-mono truncate">{card.line2}</div>}
             </a>
           ))}
         </div>

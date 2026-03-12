@@ -100,10 +100,10 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
 
       {open && (
         <div
-          className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4"
+          className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4 touch-none"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
         >
-          <div className="bg-white w-full h-[96vh] sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
+          <div className="bg-white w-full h-[90vh] sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
 
             {/* ── Header ── */}
             <div className="flex items-center justify-between px-5 sm:px-8 py-4 bg-zinc-950 border-b border-zinc-800 flex-shrink-0">
@@ -116,10 +116,10 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
-                aria-label="Close"
+                className="w-11 h-11 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+                aria-label="Zamknij"
               >
-                <X size={17} />
+                <X size={20} />
               </button>
             </div>
 
@@ -213,7 +213,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
                   {catCfg.video && (
                     <div className="relative rounded-2xl overflow-hidden mb-8 bg-zinc-900 shadow-xl border border-zinc-800">
                       <video
-                        src="/images/video hero 1.mp4"
+                        src="/images/kontakt video.mp4"
                         className="w-full h-48 sm:h-64 object-cover opacity-60"
                         muted loop playsInline autoPlay
                       />
@@ -276,6 +276,17 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
                   </div>
 
                 </div>
+
+                {/* Mobile close button */}
+                <div className="md:hidden sticky bottom-0 bg-white border-t border-zinc-100 px-5 py-4">
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="w-full flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3.5 rounded-2xl text-sm transition-colors"
+                  >
+                    <X size={16} /> Zamknij
+                  </button>
+                </div>
+
               </main>
             </div>
           </div>
