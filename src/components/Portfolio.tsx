@@ -185,12 +185,9 @@ export default function Portfolio() {
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center gap-3">
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center gap-2">
                 <span className="text-2xl">{activeBrochure.flag}</span>
-                <div>
-                  <div className="text-zinc-400 font-mono text-[9px] tracking-[0.4em] uppercase">{activeBrochure.label}</div>
-                  <div className="text-white font-bold text-sm leading-snug">{activeBrochure.title}</div>
-                </div>
+                <span className="text-zinc-400 font-mono text-[9px] tracking-[0.4em] uppercase">{activeBrochure.label}</span>
               </div>
             </div>
 
