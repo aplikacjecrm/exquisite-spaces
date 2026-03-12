@@ -131,7 +131,7 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
           <button
             onClick={toggleFullscreen}
             title={isFullscreen ? UI.exitFs : UI.fullscreen}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+            className="hidden sm:flex w-9 h-9 items-center justify-center rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
           >
             {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
           </button>
