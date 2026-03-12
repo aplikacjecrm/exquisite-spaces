@@ -36,6 +36,16 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
   const containerRef   = useRef<HTMLDivElement>(null);
   const hideTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const [isLandscape, setIsLandscape] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsLandscape(window.innerWidth > window.innerHeight && window.innerHeight < 600);
+    check();
+    window.addEventListener("resize", check);
+    window.addEventListener("orientationchange", check);
+    return () => { window.removeEventListener("resize", check); window.removeEventListener("orientationchange", check); };
+  }, []);
+
   const open = activeIdx !== null;
   const current = activeIdx !== null ? VIDEOS[activeIdx] : null;
 
@@ -48,6 +58,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
+      document.documentElement.classList.add("video-modal-open");
       setTimeout(() => {
         if (modalRef.current) {
           modalRef.current.currentTime = 0;
@@ -62,6 +73,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
+      document.documentElement.classList.remove("video-modal-open");
       window.scrollTo(0, scrollY);
       modalRef.current?.pause();
       setPlaying(false);
@@ -308,52 +320,55 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
       {/* ── Full modal ── */}
       {open && current && (
         <div
-          className="fixed inset-0 z-[300] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 sm:p-6"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-3 sm:p-6"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
         >
-          <div className="relative w-full max-w-5xl flex flex-col gap-3 sm:gap-4 max-h-[calc(100dvh-2rem)] overflow-y-auto scrollbar-hide">
+          <div className={`relative w-full max-w-5xl max-h-[calc(100dvh-1.5rem)] overflow-y-auto scrollbar-hide ${isLandscape ? "flex flex-row gap-3" : "flex flex-col gap-3 sm:gap-4"}`}>
+
+            {/* Left panel (landscape) or top section (portrait) */}
+            <div className={isLandscape ? "flex flex-col gap-2 w-44 flex-shrink-0" : "flex flex-col gap-3 sm:gap-4"}>
 
             {/* Top bar: title + close */}
             <div className="flex items-start justify-between px-1">
-              <div>
-                <div className="text-zinc-600 font-mono text-[9px] tracking-[0.45em] uppercase mb-1">
-                  Exquisite Spaces · Film firmowy
-                </div>
-                <div className="text-white font-black text-xl sm:text-2xl tracking-tight leading-tight">
+              <div className={isLandscape ? "" : ""}>
+                {!isLandscape && <div className="text-zinc-600 font-mono text-[9px] tracking-[0.45em] uppercase mb-1">Exquisite Spaces · Film firmowy</div>}
+                <div className={`text-white font-black tracking-tight leading-tight ${isLandscape ? "text-sm" : "text-xl sm:text-2xl"}`}>
                   {current.title}
                 </div>
-                <div className="text-zinc-500 text-sm mt-0.5">{current.flag} {current.subtitle}</div>
+                <div className={`text-zinc-500 mt-0.5 ${isLandscape ? "text-xs" : "text-sm"}`}>{current.flag} {current.subtitle}</div>
               </div>
               <button
                 onClick={close}
-                className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors ml-4 mt-1"
+                className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors ml-3 mt-0.5"
                 aria-label="Zamknij"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
-            {/* Language selector — big cards */}
-            <div className="flex gap-2 sm:gap-2.5 overflow-x-auto scrollbar-hide pb-0.5">
+            {/* Language selector */}
+            <div className={`flex gap-2 overflow-x-auto scrollbar-hide pb-0.5 ${isLandscape ? "flex-col overflow-x-visible overflow-y-auto" : ""}`}>
               {VIDEOS.map((v, i) => {
                 const active = i === activeIdx;
                 return (
                   <button
                     key={v.lang}
                     onClick={() => setActiveIdx(i)}
-                    className={`relative flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 sm:px-5 sm:py-3 rounded-2xl border transition-all duration-200 select-none ${
-                      active
-                        ? "z-10 bg-white border-white text-zinc-900 shadow-[0_0_24px_rgba(255,255,255,0.18)] scale-105"
-                        : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70 hover:text-white hover:border-zinc-500 hover:scale-[1.02]"
+                    className={`relative flex-shrink-0 flex items-center gap-2 border transition-all duration-200 select-none ${
+                      isLandscape
+                        ? `w-full px-2 py-1.5 rounded-xl flex-row ${active ? "z-10 bg-white border-white text-zinc-900" : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70"}`
+                        : `flex-col px-3 py-2 sm:px-5 sm:py-3 rounded-2xl ${active ? "z-10 bg-white border-white text-zinc-900 shadow-[0_0_24px_rgba(255,255,255,0.18)] scale-105" : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70 hover:text-white hover:border-zinc-500 hover:scale-[1.02]"}`
                     }`}
                   >
-                    <span className="text-2xl sm:text-3xl leading-none">{v.flag}</span>
-                    <span className={`font-black text-[10px] sm:text-[11px] tracking-[0.2em] mt-0.5 sm:mt-1 ${active ? "text-zinc-900" : "text-zinc-300"}`}>{v.lang}</span>
-                    <span className={`text-[9px] sm:text-[10px] font-medium ${active ? "text-zinc-500" : "text-zinc-600"}`}>{v.subtitle}</span>
+                    <span className={isLandscape ? "text-base leading-none" : "text-2xl sm:text-3xl leading-none"}>{v.flag}</span>
+                    <span className={`font-black tracking-[0.15em] ${isLandscape ? "text-[10px]" : "text-[10px] sm:text-[11px] mt-0.5 sm:mt-1"} ${active ? (isLandscape ? "text-zinc-900" : "text-zinc-900") : "text-zinc-300"}`}>{v.lang}</span>
+                    {!isLandscape && <span className={`text-[9px] sm:text-[10px] font-medium ${active ? "text-zinc-500" : "text-zinc-600"}`}>{v.subtitle}</span>}
                   </button>
                 );
               })}
             </div>
+
+            </div> {/* end left/top panel */}
 
             {/* Video + controls */}
             <div

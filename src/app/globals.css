@@ -143,7 +143,8 @@ body {
   }
 }
 
-/* Hide Navbar when AboutModal is open (prevents hamburger overlapping modal X on mobile) */
-html.about-modal-open nav {
+/* Hide Navbar when modals are open (prevents hamburger overlapping modal X on mobile/Android) */
+html.about-modal-open nav,
+html.video-modal-open nav {
   display: none !important;
 }
