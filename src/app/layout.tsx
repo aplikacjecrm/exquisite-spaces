@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   title: "Exquisite Spaces – Budujemy infrastrukturę z pasją i precyzją",
   description:
     "Wyspecjalizowana firma budowlano-instalacyjna z Żywca. Sieci gazowe, wod-kan, telekomunikacyjne, elektryczne. Własny sprzęt i doświadczona kadra.",
+  icons: {
+    icon: "/images/Logo.png",
+    apple: "/images/Logo.png",
+  },
 };
 
 export default function RootLayout({
