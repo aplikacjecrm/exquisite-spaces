@@ -22,7 +22,7 @@ export default function HeroCTA() {
       {/* Top accent line */}
       <div className="h-px bg-gradient-to-r from-transparent via-zinc-600 to-transparent" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-5">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-5">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 
           {/* Brand block */}
