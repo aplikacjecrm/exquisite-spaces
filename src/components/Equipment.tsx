@@ -34,7 +34,10 @@ export default function Equipment() {
   }, []);
 
   return (
-    <section id="sprzet" className="py-10 sm:py-20 lg:py-32 bg-white overflow-hidden">
+    <section id="sprzet" className="py-10 sm:py-20 lg:py-32 bg-white overflow-hidden relative">
+      {/* Fade edges */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent pointer-events-none z-10" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10 lg:mb-16">

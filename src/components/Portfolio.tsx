@@ -101,6 +101,9 @@ export default function Portfolio() {
     <section id="realizacje" className="py-14 sm:py-20 lg:py-32 bg-zinc-950 text-white overflow-x-hidden relative">
       {/* Scanline grid */}
       <div className="white-grid absolute inset-0 pointer-events-none" />
+      {/* Fade edges */}
+      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-zinc-950 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}

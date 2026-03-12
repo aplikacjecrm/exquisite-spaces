@@ -15,6 +15,9 @@ export default function HeroCTA() {
     <section id="akcja" className="relative bg-zinc-950 overflow-hidden">
       {/* Scanline grid background */}
       <div className="hero-cta-grid absolute inset-0 opacity-[0.04]" />
+      {/* Fade edges */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-zinc-950 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none z-10" />
 
       {/* Top accent line */}
       <div className="h-px bg-gradient-to-r from-transparent via-zinc-600 to-transparent" />
