@@ -49,7 +49,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden lg:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -63,7 +63,7 @@ export default function Navbar() {
           </div>
 
           {/* Language switcher — desktop */}
-          <div className={`hidden md:flex items-center gap-1 border rounded-lg p-0.5 transition-colors duration-500 ${(scrolled || open) ? "border-slate-200" : "border-white/20"}`}>
+          <div className={`hidden lg:flex items-center gap-1 border rounded-lg p-0.5 transition-colors duration-500 ${(scrolled || open) ? "border-slate-200" : "border-white/20"}`}>
             {(Object.keys(LANG_META) as Lang[]).map((l) => (
               <button
                 key={l}
@@ -91,13 +91,13 @@ export default function Navbar() {
             </a>
             <a
               href="#kontakt"
-              className="hidden md:inline-flex items-center bg-zinc-900 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-black transition-all shadow-md shadow-zinc-900/20 text-sm"
+              className="hidden lg:inline-flex items-center bg-zinc-900 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-black transition-all shadow-md shadow-zinc-900/20 text-sm"
             >
               {t.nav.cta}
             </a>
             <button
               onClick={() => setOpen(!open)}
-              className={`md:hidden p-2 rounded-lg transition-colors duration-500 ${(scrolled || open) ? "text-slate-600 hover:text-zinc-900 hover:bg-slate-100" : "text-white hover:text-white/80"}`}
+              className={`lg:hidden p-2 rounded-lg transition-colors duration-500 ${(scrolled || open) ? "text-slate-600 hover:text-zinc-900 hover:bg-slate-100" : "text-white hover:text-white/80"}`}
               aria-label="Menu"
             >
               {open ? <X size={22} /> : <Menu size={22} />}
@@ -106,9 +106,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile + tablet menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-slate-100 shadow-xl">
+        <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl">
           <div className="px-4 py-5 space-y-1">
             {navLinks.map((link) => (
               <a

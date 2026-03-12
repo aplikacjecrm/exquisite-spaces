@@ -27,6 +27,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
   const [internalOpen, setInternalOpen] = useState(false);
   const [active, setActive] = useState(0);
   const mainRef = useRef<HTMLElement>(null);
+  const savedScrollY = useRef(0);
 
   const open = externalOpen ?? internalOpen;
   const setOpen = (v: boolean) => {
@@ -36,26 +37,23 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
 
   useEffect(() => {
     if (open) {
-      const scrollY = window.scrollY;
+      savedScrollY.current = window.scrollY;
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
+      document.body.style.top = `-${savedScrollY.current}px`;
       document.body.style.width = "100%";
     } else {
-      const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
-      window.scrollTo(0, scrollY);
+      window.scrollTo(0, savedScrollY.current);
     }
     return () => {
-      const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
-      if (scrollY) window.scrollTo(0, scrollY);
     };
   }, [open]);
 
