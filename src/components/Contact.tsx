@@ -127,7 +127,7 @@ export default function Contact() {
   const [quizDone, setQuizDone] = useState(false);
   const [quizScore, setQuizScore] = useState(0);
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "", nip: "", service: "", location: "", coopType: "", message: "", position: "" });
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -135,9 +135,9 @@ export default function Contact() {
   const fitPercent = Math.round((quizScore / (CAREER_QUIZ.length * 4)) * 100);
 
   const getFit = (score: number) => {
-    if (score >= 15) return { label: t.contact.fitHigh, emoji: "🎯", color: "emerald", desc: t.contact.fitHigh };
-    if (score >= 10) return { label: t.contact.fitMed, emoji: "💪", color: "blue", desc: t.contact.fitMed };
-    return { label: t.contact.fitLow, emoji: "🌱", color: "amber", desc: t.contact.fitLow };
+    if (score >= 15) return { label: t.contact.fitHigh, emoji: "🎯", color: "high", desc: t.contact.fitHigh };
+    if (score >= 10) return { label: t.contact.fitMed, emoji: "💪", color: "med", desc: t.contact.fitMed };
+    return { label: t.contact.fitLow, emoji: "🌱", color: "low", desc: t.contact.fitLow };
   };
 
   const handleQuizAnswer = (score: number) => {
@@ -153,7 +153,7 @@ export default function Contact() {
 
   const resetMode = () => {
     setMode(null); setQuizStep(0); setQuizAnswers([]); setQuizDone(false);
-    setQuizScore(0); setSubmitted(false); setError(""); setFile(null);
+    setQuizScore(0); setSubmitted(false); setError(""); setFiles([]);
     setFormData({ name: "", phone: "", email: "", company: "", nip: "", service: "", location: "", coopType: "", message: "", position: "" });
   };
 
@@ -162,11 +162,11 @@ export default function Contact() {
     try {
       let res: Response;
       const extra = mode === "career" ? { quizScore: String(quizScore), fitPercent: fitPercent + "%" } : {};
-      if (file) {
+      if (files.length > 0) {
         const fd = new FormData();
         fd.append("mode", mode ?? "");
         Object.entries({ ...formData, ...extra }).forEach(([k, v]) => { if (v) fd.append(k, v); });
-        fd.append("attachment", file);
+        files.forEach(f => fd.append("attachment", f));
         res = await fetch("/api/contact", {
           method: "POST",
           body: fd,
@@ -316,20 +316,20 @@ export default function Contact() {
                   <ArrowLeft size={15} /> {t.contact.back}
                 </button>
                 {/* Result card */}
-                <div className={`rounded-2xl border-2 p-5 mb-8 ${fit.color === "emerald" ? "bg-emerald-50 border-emerald-200" : fit.color === "blue" ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
+                <div className={`rounded-2xl border-2 p-5 mb-8 ${fit.color === "high" ? "bg-zinc-900 border-zinc-700" : fit.color === "med" ? "bg-zinc-100 border-zinc-300" : "bg-slate-50 border-slate-200"}`}>
                   <div className="flex items-center gap-4">
                     <div className="text-4xl">{fit.emoji}</div>
                     <div className="flex-1">
-                      <div className={`font-black text-lg ${fit.color === "emerald" ? "text-emerald-700" : fit.color === "blue" ? "text-blue-700" : "text-amber-700"}`}>{fit.label}</div>
-                      <div className="text-slate-600 text-sm mt-0.5">{fit.desc}</div>
+                      <div className={`font-black text-lg ${fit.color === "high" ? "text-white" : fit.color === "med" ? "text-zinc-900" : "text-slate-600"}`}>{fit.label}</div>
+                      <div className={`text-sm mt-0.5 ${fit.color === "high" ? "text-zinc-300" : "text-slate-500"}`}>{fit.desc}</div>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <div className={`text-3xl font-black ${fit.color === "emerald" ? "text-emerald-600" : fit.color === "blue" ? "text-blue-600" : "text-amber-600"}`}>{fitPercent}%</div>
-                      <div className="text-xs text-slate-500">{t.contact.fitLabel}</div>
+                      <div className={`text-3xl font-black ${fit.color === "high" ? "text-white" : fit.color === "med" ? "text-zinc-900" : "text-slate-500"}`}>{fitPercent}%</div>
+                      <div className={`text-xs ${fit.color === "high" ? "text-zinc-400" : "text-slate-400"}`}>{t.contact.fitLabel}</div>
                     </div>
                   </div>
-                  <div className="mt-3 h-2 bg-white/60 rounded-full overflow-hidden">
-                    <div className={`h-full rounded-full transition-all duration-700 ${fit.color === "emerald" ? "bg-emerald-500" : fit.color === "blue" ? "bg-blue-500" : "bg-amber-500"}`} style={{ width: `${fitPercent}%` }} />
+                  <div className="mt-3 h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full transition-all duration-700 ${fit.color === "high" ? "bg-white" : fit.color === "med" ? "bg-zinc-800" : "bg-slate-300"}`} style={{ width: `${fitPercent}%` }} />
                   </div>
                 </div>
                 <h4 className="font-black text-slate-900 text-lg mb-6">{t.contact.submitCareer}</h4>
@@ -350,8 +350,8 @@ export default function Contact() {
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
                       <Paperclip size={16} className="flex-shrink-0" />
-                      <span className="truncate">{file ? file.name : t.contact.attachHint}</span>
-                      <input type="file" className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => setFile(e.target.files?.[0] ?? null)} />
+                      <span className="truncate">{files.length > 0 ? `${files.length} ${t.contact.filesSelected}` : t.contact.attachHint}</span>
+                      <input type="file" multiple className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => { const sel = Array.from(e.target.files ?? []); setFiles(prev => [...prev, ...sel].slice(0, 10)); e.target.value = ""; }} />
                     </label>
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
@@ -389,8 +389,8 @@ export default function Contact() {
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
                       <Paperclip size={16} className="flex-shrink-0" />
-                      <span className="truncate">{file ? file.name : t.contact.attachHint}</span>
-                      <input type="file" className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => setFile(e.target.files?.[0] ?? null)} />
+                      <span className="truncate">{files.length > 0 ? `${files.length} ${t.contact.filesSelected}` : t.contact.attachHint}</span>
+                      <input type="file" multiple className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => { const sel = Array.from(e.target.files ?? []); setFiles(prev => [...prev, ...sel].slice(0, 10)); e.target.value = ""; }} />
                     </label>
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
@@ -432,8 +432,8 @@ export default function Contact() {
                     <label className={lbl}>{t.contact.attachLabel}</label>
                     <label className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 hover:border-zinc-400 bg-slate-50 hover:bg-white cursor-pointer transition-all text-sm text-slate-500 hover:text-slate-700">
                       <Paperclip size={16} className="flex-shrink-0" />
-                      <span className="truncate">{file ? file.name : t.contact.attachHint}</span>
-                      <input type="file" className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => setFile(e.target.files?.[0] ?? null)} />
+                      <span className="truncate">{files.length > 0 ? `${files.length} ${t.contact.filesSelected}` : t.contact.attachHint}</span>
+                      <input type="file" multiple className="hidden" accept=".pdf,.doc,.docx,.jpg,.png" onChange={e => { const sel = Array.from(e.target.files ?? []); setFiles(prev => [...prev, ...sel].slice(0, 10)); e.target.value = ""; }} />
                     </label>
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}

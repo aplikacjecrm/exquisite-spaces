@@ -17,7 +17,7 @@ function row(label: string, value: string, bg = false) {
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   let fields: Record<string, string> = {};
-  let attachment: { filename: string; content: Buffer } | undefined;
+  let attachments: { filename: string; content: Buffer }[] = [];
 
   const contentType = req.headers.get("content-type") ?? "";
 
@@ -26,10 +26,11 @@ export async function POST(req: NextRequest) {
     formData.forEach((value, key) => {
       if (typeof value === "string") fields[key] = value;
     });
-    const file = formData.get("attachment") as File | null;
-    if (file && file.size > 0) {
-      const buf = Buffer.from(await file.arrayBuffer());
-      attachment = { filename: file.name, content: buf };
+    const fileEntries = formData.getAll("attachment") as File[];
+    for (const f of fileEntries) {
+      if (f instanceof File && f.size > 0) {
+        attachments.push({ filename: f.name, content: Buffer.from(await f.arrayBuffer()) });
+      }
     }
   } else {
     fields = await req.json();
@@ -96,7 +97,7 @@ export async function POST(req: NextRequest) {
         replyTo: email,
         subject: `[${modeLabel}] ${name || email}`,
         html,
-        ...(attachment ? { attachments: [{ filename: attachment.filename, content: attachment.content }] } : {}),
+        ...(attachments.length > 0 ? { attachments } : {}),
       }),
       resend.emails.send({
         from: "Exquisite Spaces <noreply@exquisitespaces.pl>",
