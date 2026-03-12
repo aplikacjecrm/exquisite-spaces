@@ -323,10 +323,10 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-3 sm:p-6"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
         >
-          <div className={`relative w-full max-w-5xl max-h-[calc(100dvh-1.5rem)] overflow-y-auto scrollbar-hide ${isLandscape ? "flex flex-row gap-3" : "flex flex-col gap-3 sm:gap-4"}`}>
+          <div className={`relative w-full max-w-5xl h-[calc(100dvh-1.5rem)] sm:h-[calc(100dvh-2.5rem)] ${isLandscape ? "flex flex-row gap-3" : "flex flex-col gap-2 sm:gap-3"}`}>
 
             {/* Left panel (landscape) or top section (portrait) */}
-            <div className={isLandscape ? "flex flex-col gap-2 w-44 flex-shrink-0" : "flex flex-col gap-3 sm:gap-4"}>
+            <div className={isLandscape ? "flex flex-col gap-2 w-44 flex-shrink-0" : "flex flex-col gap-2 flex-shrink-0"}>
 
             {/* Top bar: title + close */}
             <div className="flex items-start justify-between px-1">
@@ -373,9 +373,9 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
             {/* Video + controls */}
             <div
               ref={containerRef}
-              className={`relative rounded-2xl overflow-hidden bg-black border transition-all duration-300 ${
+              className={`relative rounded-2xl overflow-hidden bg-black border transition-all duration-300 flex-1 min-h-0 ${
                 activeIdx !== null ? "shadow-[0_0_60px_rgba(255,255,255,0.07)] border-zinc-700/80" : "border-zinc-800/50"
-              } ${isFullscreen ? `flex flex-col justify-center w-full h-full ${showControls ? "cursor-default" : "cursor-none"}` : ""}`}
+              } ${isFullscreen ? `flex flex-col justify-center w-full h-full ${showControls ? "cursor-default" : "cursor-none"}` : "flex flex-col"}`}
               onMouseMove={revealControls}
               onMouseEnter={revealControls}
               onTouchStart={revealControls}
@@ -383,7 +383,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
             >
               {/* Click to play/pause */}
               <div
-                className={`relative ${isFullscreen ? "flex-1 flex items-center justify-center" : ""}`}
+                className={`relative flex-1 min-h-0 ${isFullscreen ? "flex items-center justify-center" : "flex"}`}
                 onClick={() => { modalRef.current?.paused ? modalRef.current.play() : modalRef.current?.pause(); revealControls(); }}
                 onDoubleClick={toggleFullscreen}
               >
@@ -391,7 +391,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                   key={current.src}
                   ref={modalRef}
                   src={current.src}
-                  className={`block object-contain bg-black ${isFullscreen ? "w-full h-full max-h-screen" : "w-full aspect-video"}`}
+                  className={`block object-contain bg-black ${isFullscreen ? "w-full h-full max-h-screen" : "w-full flex-1 min-h-0"}`}
                   playsInline
                   loop
                   onContextMenu={(e) => e.preventDefault()}
