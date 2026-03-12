@@ -130,7 +130,41 @@ export default function PrivacyPage() {
             </Link>
           </Section>
 
-          <Section title="8. Zmiany polityki prywatności">
+          <Section title="8. Inspektor Ochrony Danych (IOD)">
+            <p>
+              Administrator nie wyznaczył Inspektora Ochrony Danych, ponieważ nie jest do tego zobowiązany na podstawie art. 37 RODO (przetwarzanie danych nie jest główną działalnością oraz nie jest prowadzone na dużą skalę).
+            </p>
+            <p>
+              W sprawach dotyczących ochrony danych osobowych kontaktuj się bezpośrednio z Administratorem: <a href="mailto:biuro@exquisitespaces.pl" className="text-zinc-900 font-semibold underline">biuro@exquisitespaces.pl</a>
+            </p>
+          </Section>
+
+          <Section title="9. Dobrowolność podania danych">
+            <p>Podanie danych osobowych jest dobrowolne, jednak konieczne do realizacji określonych celów:</p>
+            <ul className="space-y-2 mt-2">
+              <li>• <strong>Formularz kontaktowy (klient/B2B):</strong> podanie imienia, adresu e-mail oraz treści wiadomości jest niezbędne do udzielenia odpowiedzi. Niepodanie tych danych uniemożliwia kontakt.</li>
+              <li>• <strong>Formularz rekrutacyjny:</strong> podanie imienia, adresu e-mail i stanowiska jest niezbędne do rozpatrzenia aplikacji. Niepodanie tych danych uniemożliwia udział w rekrutacji. CV i portfolio są opcjonalne.</li>
+              <li>• <strong>Dane analityczne:</strong> zbierane automatycznie podczas korzystania ze strony. Możesz je ograniczyć wybierając „Tylko niezbędne" w banerze cookie lub wyłączając cookies w przeglądarce.</li>
+            </ul>
+          </Section>
+
+          <Section title="10. Zautomatyzowane podejmowanie decyzji i profilowanie">
+            <p>
+              Administrator <strong>nie stosuje</strong> zautomatyzowanego podejmowania decyzji, w tym profilowania, o którym mowa w art. 22 ust. 1 i 4 RODO. Dane osobowe przetwarzane są wyłącznie przez osoby uprawnione po stronie Administratora.
+            </p>
+          </Section>
+
+          <Section title="11. Przetwarzanie danych rekrutacyjnych">
+            <p>Dane osobowe kandydatów do pracy przetwarzane są zgodnie z art. 22¹ Kodeksu pracy oraz RODO:</p>
+            <ul className="space-y-2 mt-2">
+              <li>• <strong>Zakres danych wymaganych przez prawo (art. 22¹ KP):</strong> imię i nazwisko, data urodzenia, dane kontaktowe, wykształcenie, przebieg dotychczasowego zatrudnienia.</li>
+              <li>• <strong>Dane wykraczające poza art. 22¹ KP</strong> (np. zdjęcie, zainteresowania) przetwarzamy wyłącznie za Twoją zgodą — wysyłając CV zawierające takie dane, wyrażasz zgodę na ich przetwarzanie.</li>
+              <li>• <strong>Okres przechowywania:</strong> 12 miesięcy po zakończeniu rekrutacji, chyba że wyrazisz zgodę na dłuższe przechowywanie w celu przyszłych rekrutacji.</li>
+              <li>• Dane rekrutacyjne nie są przekazywane podmiotom zewnętrznym bez Twojej zgody.</li>
+            </ul>
+          </Section>
+
+          <Section title="12. Zmiany polityki prywatności">
             <p>Administrator zastrzega sobie prawo do zmiany niniejszej Polityki Prywatności. O istotnych zmianach poinformujemy poprzez aktualizację daty modyfikacji na tej stronie. Korzystanie ze strony po zmianach oznacza ich akceptację.</p>
           </Section>
 

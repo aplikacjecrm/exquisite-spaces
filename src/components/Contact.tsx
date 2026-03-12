@@ -376,6 +376,10 @@ export default function Contact() {
                     )}
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
+                  <p className="text-zinc-400 text-[10px] leading-relaxed border-t border-zinc-100 pt-3">
+                    Administratorem danych jest <strong className="text-zinc-500">Exquisite Spaces Sp. z o.o.</strong>, ul. Kopernika 132, 34-300 Żywiec. Dane przetwarzamy w celu przeprowadzenia rekrutacji (art. 6 ust. 1 lit. f RODO). Przysługuje Ci prawo dostępu, sprostowania, usunięcia danych oraz wniesienia skargi do UODO.{" "}
+                    <a href="/polityka-prywatnosci" className="underline hover:text-zinc-600" target="_blank" rel="noopener">Polityka prywatności</a>.
+                  </p>
                   <button type="submit" disabled={loading} className="w-full bg-zinc-900 hover:bg-black disabled:bg-zinc-400 text-white py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
                     <Send size={16} className={loading ? "animate-pulse" : ""} />
                     {loading ? t.contact.sending : t.contact.submitCareer}
@@ -433,6 +437,10 @@ export default function Contact() {
                     )}
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
+                  <p className="text-zinc-400 text-[10px] leading-relaxed border-t border-zinc-100 pt-3">
+                    Administratorem danych jest <strong className="text-zinc-500">Exquisite Spaces Sp. z o.o.</strong>, ul. Kopernika 132, 34-300 Żywiec. Dane przetwarzamy w celu odpowiedzi na zapytanie (art. 6 ust. 1 lit. b RODO). Przysługuje Ci prawo dostępu, sprostowania, usunięcia danych oraz wniesienia skargi do UODO.{" "}
+                    <a href="/polityka-prywatnosci" className="underline hover:text-zinc-600" target="_blank" rel="noopener">Polityka prywatności</a>.
+                  </p>
                   <button type="submit" disabled={loading} className="w-full bg-zinc-900 hover:bg-black disabled:bg-zinc-400 text-white py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
                     <Send size={16} className={loading ? "animate-pulse" : ""} />
                     {loading ? t.contact.sending : t.contact.btnSend}
@@ -494,6 +502,10 @@ export default function Contact() {
                     )}
                   </div>
                   {error && <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</p>}
+                  <p className="text-zinc-400 text-[10px] leading-relaxed border-t border-zinc-100 pt-3">
+                    Administratorem danych jest <strong className="text-zinc-500">Exquisite Spaces Sp. z o.o.</strong>, ul. Kopernika 132, 34-300 Żywiec. Dane przetwarzamy w celu nawiązania współpracy B2B (art. 6 ust. 1 lit. b RODO). Przysługuje Ci prawo dostępu, sprostowania, usunięcia danych oraz wniesienia skargi do UODO.{" "}
+                    <a href="/polityka-prywatnosci" className="underline hover:text-zinc-600" target="_blank" rel="noopener">Polityka prywatności</a>.
+                  </p>
                   <button type="submit" disabled={loading} className="w-full bg-zinc-900 hover:bg-black disabled:bg-zinc-400 text-white py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5">
                     <Send size={16} className={loading ? "animate-pulse" : ""} />
                     {loading ? t.contact.sending : t.contact.btnSend}
