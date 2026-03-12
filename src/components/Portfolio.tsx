@@ -176,8 +176,8 @@ export default function Portfolio() {
 
           {/* Featured brochure card — thumbnail + meta */}
           <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.04)]">
-            {/* PDF thumbnail — scrollable, no pointer blocking */}
-            <div className="relative overflow-hidden" style={{ height: "600px" }}>
+            {/* PDF thumbnail — small on mobile, full on desktop */}
+            <div className="relative overflow-hidden h-44 sm:h-[600px]">
               <iframe
                 key={activeBrochure.file}
                 src={`${activeBrochure.file}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=75`}

@@ -193,8 +193,8 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
               {/* Main */}
               <main ref={mainRef} className="flex-1 overflow-y-auto bg-white scrollbar-hide">
 
-                {/* Mobile category pills */}
-                <div className="flex md:hidden gap-2 overflow-x-auto px-4 py-3 border-b border-zinc-100 bg-zinc-50 scrollbar-none">
+                {/* Mobile category pills — hidden, navigation via bottom prev/next */}
+                <div className="hidden gap-2 overflow-x-auto px-4 py-3 border-b border-zinc-100 bg-zinc-50 scrollbar-none">
                   {am.categories.map((c, i) => (
                     <button
                       key={i}

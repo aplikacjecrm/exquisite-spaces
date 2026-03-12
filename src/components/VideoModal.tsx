@@ -134,17 +134,17 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
     <>
       {/* ── Video gallery grid ── */}
       <div className="w-full">
-        {/* Mobile: horizontal scroll — featured card last */}
+        {/* Mobile: horizontal scroll — featured (language-matched) card FIRST */}
         <div className="flex sm:hidden gap-3 overflow-x-auto pb-1 scrollbar-hide snap-x snap-mandatory">
-          {VIDEOS.filter((_, i) => i !== featuredIdx).map((v) => {
-            const idx = VIDEOS.indexOf(v);
-            return <MiniCard key={v.lang} video={v} onClick={() => setActiveIdx(idx)} />;
-          })}
           <MiniCard
             video={VIDEOS[featuredIdx]}
             onClick={() => setActiveIdx(featuredIdx)}
             isFeatured
           />
+          {VIDEOS.filter((_, i) => i !== featuredIdx).map((v) => {
+            const idx = VIDEOS.indexOf(v);
+            return <MiniCard key={v.lang} video={v} onClick={() => setActiveIdx(idx)} />;
+          })}
         </div>
         {/* Mobile: CTA below scroll */}
         {bottomCta && (
