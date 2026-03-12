@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "../context/LanguageContext";
 import Analytics from "../components/Analytics";
+import CookieBanner from "../components/CookieBanner";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <LanguageProvider>
           <Analytics />
           {children}
+          <CookieBanner />
         </LanguageProvider>
       </body>
     </html>

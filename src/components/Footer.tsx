@@ -137,6 +137,14 @@ export default function Footer() {
             <p className="text-zinc-400 text-xs font-mono">
               &copy; {new Date().getFullYear()} Exquisite Spaces Sp. z o.o. {t.footer.copyright}
             </p>
+            <div className="flex items-center gap-4">
+              <a href="/polityka-prywatnosci" className="text-zinc-400 hover:text-zinc-600 text-xs transition-colors">
+                Polityka prywatności
+              </a>
+              <a href="/polityka-cookies" className="text-zinc-400 hover:text-zinc-600 text-xs transition-colors">
+                Polityka cookies
+              </a>
+            </div>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-1">
             <span className="text-zinc-300 text-[11px] font-mono w-full">
