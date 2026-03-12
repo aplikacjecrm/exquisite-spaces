@@ -114,7 +114,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
               ref={heroRef}
               src={VIDEOS[heroIdx].src}
               poster={VIDEOS[heroIdx].poster}
-              className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+              className="w-full aspect-video object-contain bg-zinc-950 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
               autoPlay muted loop playsInline preload="auto"
               onContextMenu={(e) => e.preventDefault()}
             />
@@ -264,7 +264,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                   key={current.src}
                   ref={modalRef}
                   src={current.src}
-                  className="w-full aspect-video object-cover block"
+                  className="w-full aspect-video object-contain bg-black block"
                   playsInline
                   loop
                   onContextMenu={(e) => e.preventDefault()}
