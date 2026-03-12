@@ -34,7 +34,7 @@ export default function ScrollToTop() {
     <button
       onClick={handleClick}
       aria-label={label[lang] ?? "Scroll to top"}
-      className={`fixed bottom-6 right-6 z-[300] transition-all duration-300 hover:scale-110 drop-shadow-xl ${
+      className={`fixed bottom-28 sm:bottom-6 right-4 sm:right-6 z-[950] transition-all duration-300 hover:scale-110 drop-shadow-xl ${
         visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >

@@ -215,8 +215,8 @@ export default function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-5 gap-10 lg:gap-12">
-          {/* Contact sidebar */}
-          <div className="lg:col-span-2 space-y-4">
+          {/* Contact sidebar — shown below form on mobile, left col on desktop */}
+          <div className="lg:col-span-2 space-y-4 order-2 lg:order-1">
             <a href="tel:+48600390073" className="flex items-center gap-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-zinc-300 hover:shadow-md transition-all group">
               <div className="w-12 h-12 bg-zinc-900 text-white rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-black transition-colors"><Phone size={20} /></div>
               <div><div className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-0.5">{t.contact.labelPhone}</div><div className="text-slate-800 font-bold text-lg">+48 600 390 073</div></div>
@@ -243,8 +243,8 @@ export default function Contact() {
             </a>
           </div>
 
-          {/* Main form panel */}
-          <div className="lg:col-span-3 bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+          {/* Main form panel — shown first on mobile */}
+          <div className="lg:col-span-3 bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden order-1 lg:order-2">
 
             {/* ── MODE SELECTION ── */}
             {!mode && (
