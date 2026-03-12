@@ -208,7 +208,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
                   ))}
                 </div>
 
-                <div className="max-w-3xl mx-auto px-5 sm:px-8 lg:px-12 pt-8 pb-28 lg:py-12">
+                <div className="max-w-3xl mx-auto px-5 sm:px-8 lg:px-12 pt-8 pb-4 lg:py-12">
 
                   {/* Doc header */}
                   <div className="mb-8">
