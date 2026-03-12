@@ -120,7 +120,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
 
       {open && (
         <div
-          className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4 touch-none"
+          className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-0 sm:p-4"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
         >
           <div className="bg-white w-full h-[90vh] sm:h-[92vh] sm:max-w-[1320px] sm:rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_100px_rgba(0,0,0,0.5)]">
