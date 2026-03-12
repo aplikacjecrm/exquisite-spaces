@@ -25,13 +25,13 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+        (scrolled || open)
           ? "bg-white/98 backdrop-blur-md shadow-md border-b border-slate-200/80"
           : "bg-transparent border-b border-transparent"
       }`}
     >
       {/* Top accent bar */}
-      <div className={`h-1 bg-gradient-to-r from-zinc-700 via-zinc-800 to-zinc-900 transition-opacity duration-500 ${scrolled ? "opacity-100" : "opacity-0"}`} />
+      <div className={`h-1 bg-gradient-to-r from-zinc-700 via-zinc-800 to-zinc-900 transition-opacity duration-500 ${(scrolled || open) ? "opacity-100" : "opacity-0"}`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -43,8 +43,8 @@ export default function Navbar() {
                 className="h-10 lg:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className={`font-black text-sm lg:text-base tracking-tight transition-colors duration-500 ${scrolled ? "text-zinc-900" : "text-white"}`}>EXQUISITE SPACES</span>
-              <span className={`font-mono text-[9px] lg:text-[10px] tracking-[0.2em] uppercase transition-colors duration-500 ${scrolled ? "text-zinc-400" : "text-white/60"}`}>Żywiec · Sp. z o.o.</span>
+              <span className={`font-black text-sm lg:text-base tracking-tight transition-colors duration-500 ${(scrolled || open) ? "text-zinc-900" : "text-white"}`}>EXQUISITE SPACES</span>
+              <span className={`font-mono text-[9px] lg:text-[10px] tracking-[0.2em] uppercase transition-colors duration-500 ${(scrolled || open) ? "text-zinc-400" : "text-white/60"}`}>Żywiec · Sp. z o.o.</span>
             </div>
           </a>
 
@@ -54,16 +54,16 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`font-medium transition-colors text-sm relative group ${scrolled ? "text-slate-600 hover:text-zinc-900" : "text-white/80 hover:text-white"}`}
+                className={`font-medium transition-colors text-sm relative group ${(scrolled || open) ? "text-slate-600 hover:text-zinc-900" : "text-white/80 hover:text-white"}`}
               >
                 {link.label}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${scrolled ? "bg-zinc-900" : "bg-white"}`} />
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${(scrolled || open) ? "bg-zinc-900" : "bg-white"}`} />
               </a>
             ))}
           </div>
 
           {/* Language switcher — desktop */}
-          <div className={`hidden md:flex items-center gap-1 border rounded-lg p-0.5 transition-colors duration-500 ${scrolled ? "border-slate-200" : "border-white/20"}`}>
+          <div className={`hidden md:flex items-center gap-1 border rounded-lg p-0.5 transition-colors duration-500 ${(scrolled || open) ? "border-slate-200" : "border-white/20"}`}>
             {(Object.keys(LANG_META) as Lang[]).map((l) => (
               <button
                 key={l}
@@ -71,8 +71,8 @@ export default function Navbar() {
                 title={LANG_META[l].label}
                 className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${
                   lang === l
-                    ? (scrolled ? "bg-zinc-900 text-white shadow-sm" : "bg-white/20 text-white shadow-sm")
-                    : (scrolled ? "text-slate-500 hover:text-zinc-900" : "text-white/60 hover:text-white")
+                    ? ((scrolled || open) ? "bg-zinc-900 text-white shadow-sm" : "bg-white/20 text-white shadow-sm")
+                    : ((scrolled || open) ? "text-slate-500 hover:text-zinc-900" : "text-white/60 hover:text-white")
                 }`}
               >
                 {LANG_META[l].flag}
@@ -84,7 +84,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="tel:+48600390073"
-              className={`hidden lg:flex items-center gap-2 text-sm font-medium transition-colors duration-500 ${scrolled ? "text-slate-600 hover:text-zinc-900" : "text-white/80 hover:text-white"}`}
+              className={`hidden lg:flex items-center gap-2 text-sm font-medium transition-colors duration-500 ${(scrolled || open) ? "text-slate-600 hover:text-zinc-900" : "text-white/80 hover:text-white"}`}
             >
               <Phone size={15} />
               +48 600 390 073
@@ -97,7 +97,7 @@ export default function Navbar() {
             </a>
             <button
               onClick={() => setOpen(!open)}
-              className={`md:hidden p-2 rounded-lg transition-colors duration-500 ${scrolled ? "text-slate-600 hover:text-zinc-900 hover:bg-slate-100" : "text-white hover:text-white/80"}`}
+              className={`md:hidden p-2 rounded-lg transition-colors duration-500 ${(scrolled || open) ? "text-slate-600 hover:text-zinc-900 hover:bg-slate-100" : "text-white hover:text-white/80"}`}
               aria-label="Menu"
             >
               {open ? <X size={22} /> : <Menu size={22} />}

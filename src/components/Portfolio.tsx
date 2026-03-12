@@ -176,8 +176,25 @@ export default function Portfolio() {
 
           {/* Featured brochure card — thumbnail + meta */}
           <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.04)]">
-            {/* PDF thumbnail — small on mobile, full on desktop */}
-            <div className="relative overflow-hidden h-44 sm:h-[600px]">
+
+            {/* Mobile: PDF not supported in iframe on Android → styled card */}
+            <div className="sm:hidden flex flex-col items-center justify-center gap-5 py-10 px-6 bg-zinc-900/60">
+              <span className="text-6xl">{activeBrochure.flag}</span>
+              <div className="text-center">
+                <div className="text-zinc-500 font-mono text-[9px] tracking-[0.4em] uppercase mb-1">{activeBrochure.label}</div>
+                <div className="text-white font-bold text-base leading-snug">{activeBrochure.title}</div>
+              </div>
+              <button
+                onClick={() => setPdfOpen(activeBrochure.file)}
+                className="flex items-center gap-2 bg-white text-zinc-900 hover:bg-zinc-100 px-7 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg"
+              >
+                <Eye size={16} />
+                {t.portfolio.btnPreview}
+              </button>
+            </div>
+
+            {/* Desktop: iframe PDF preview */}
+            <div className="relative hidden sm:block overflow-hidden" style={{ height: "600px" }}>
               <iframe
                 key={activeBrochure.file}
                 src={`${activeBrochure.file}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=75`}
@@ -185,7 +202,7 @@ export default function Portfolio() {
                 title="PDF miniatura"
                 style={{ width: "calc(100% + 20px)" }}
               />
-              {/* Floating expand button — always on top */}
+              {/* Floating expand button */}
               <button
                 onClick={() => setPdfOpen(activeBrochure.file)}
                 className="absolute top-3 right-6 z-10 flex items-center gap-2 bg-black/70 hover:bg-black text-white backdrop-blur-sm px-4 py-2 rounded-xl font-bold text-xs shadow-xl transition-all border border-white/10 hover:border-white/30"
