@@ -311,7 +311,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
           className="fixed inset-0 z-[300] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 sm:p-6"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
         >
-          <div className="relative w-full max-w-5xl flex flex-col gap-4">
+          <div className="relative w-full max-w-5xl flex flex-col gap-3 sm:gap-4 max-h-[calc(100dvh-2rem)] overflow-y-auto scrollbar-hide">
 
             {/* Top bar: title + close */}
             <div className="flex items-start justify-between px-1">
@@ -334,22 +334,22 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
             </div>
 
             {/* Language selector — big cards */}
-            <div className="flex gap-2.5 overflow-x-auto scrollbar-hide pb-0.5">
+            <div className="flex gap-2 sm:gap-2.5 overflow-x-auto scrollbar-hide pb-0.5">
               {VIDEOS.map((v, i) => {
                 const active = i === activeIdx;
                 return (
                   <button
                     key={v.lang}
                     onClick={() => setActiveIdx(i)}
-                    className={`flex-shrink-0 flex flex-col items-center gap-1 px-5 py-3 rounded-2xl border transition-all duration-200 select-none ${
+                    className={`relative flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 sm:px-5 sm:py-3 rounded-2xl border transition-all duration-200 select-none ${
                       active
-                        ? "bg-white border-white text-zinc-900 shadow-[0_0_24px_rgba(255,255,255,0.18)] scale-105"
-                        : "bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70 hover:text-white hover:border-zinc-500 hover:scale-[1.02]"
+                        ? "z-10 bg-white border-white text-zinc-900 shadow-[0_0_24px_rgba(255,255,255,0.18)] scale-105"
+                        : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70 hover:text-white hover:border-zinc-500 hover:scale-[1.02]"
                     }`}
                   >
-                    <span className="text-3xl leading-none">{v.flag}</span>
-                    <span className={`font-black text-[11px] tracking-[0.2em] mt-1 ${active ? "text-zinc-900" : "text-zinc-300"}`}>{v.lang}</span>
-                    <span className={`text-[10px] font-medium ${active ? "text-zinc-500" : "text-zinc-600"}`}>{v.subtitle}</span>
+                    <span className="text-2xl sm:text-3xl leading-none">{v.flag}</span>
+                    <span className={`font-black text-[10px] sm:text-[11px] tracking-[0.2em] mt-0.5 sm:mt-1 ${active ? "text-zinc-900" : "text-zinc-300"}`}>{v.lang}</span>
+                    <span className={`text-[9px] sm:text-[10px] font-medium ${active ? "text-zinc-500" : "text-zinc-600"}`}>{v.subtitle}</span>
                   </button>
                 );
               })}

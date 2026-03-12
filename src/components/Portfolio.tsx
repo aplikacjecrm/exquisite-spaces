@@ -80,7 +80,12 @@ function ProjectCard({ project, tall }: { project: Project; tall?: boolean }) {
 
 export default function Portfolio() {
   const [pdfOpen, setPdfOpen] = useState<string | null>(null);
+  const [isTouch, setIsTouch] = useState(true); // SSR default = touch-safe (cover image)
   const { lang, t } = useLanguage();
+
+  useEffect(() => {
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
   const projects = t.portfolio.projects.map((p, i) => ({ ...p, num: String(i + 1).padStart(2, "0"), ...PROJECT_IMGS[i] }));
 
   useEffect(() => {
@@ -177,8 +182,8 @@ export default function Portfolio() {
           {/* Featured brochure card — thumbnail + meta */}
           <div className="rounded-2xl border border-white/15 bg-white/5 overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.04)]">
 
-            {/* Mobile + Tablet: cover image (Android Chrome cannot render PDF in iframe) */}
-            <div className="lg:hidden relative overflow-hidden h-56 sm:h-72">
+            {/* Touch devices (mobile/tablet/Android landscape): always cover image */}
+            <div className={`${isTouch ? "block" : "lg:hidden"} relative overflow-hidden h-56 sm:h-72`}>
               <img
                 src={activeBrochure.cover}
                 alt={activeBrochure.title}
@@ -202,8 +207,8 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* Desktop only: iframe PDF preview */}
-            <div className="relative hidden lg:block overflow-hidden" style={{ height: "600px" }}>
+            {/* Non-touch desktop only: iframe PDF preview */}
+            <div className={`relative overflow-hidden ${isTouch ? "hidden" : "hidden lg:block"}`} style={{ height: "600px" }}>
               <iframe
                 key={activeBrochure.file}
                 src={`${activeBrochure.file}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=75`}
@@ -220,8 +225,8 @@ export default function Portfolio() {
                 {t.portfolio.btnPreview}
               </button>
             </div>
-            {/* Meta bar */}
-            <div className="flex items-center gap-4 px-5 py-4 border-t border-white/10">
+            {/* Meta bar — non-touch desktop only */}
+            <div className={`${isTouch ? "hidden" : "hidden lg:flex"} items-center gap-4 px-5 py-4 border-t border-white/10`}>
               <span className="text-3xl flex-shrink-0">{activeBrochure.flag}</span>
               <div className="flex-1 min-w-0">
                 <div className="text-zinc-500 font-mono text-[9px] tracking-[0.4em] uppercase mb-0.5">{activeBrochure.label}</div>
