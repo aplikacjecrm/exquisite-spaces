@@ -356,7 +356,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                       className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
                       {playing ? <Pause size={16} className="fill-white" /> : <Play size={16} className="fill-white ml-0.5" />}
                     </button>
-                    <div className="relative flex items-center"
+                    <div className="relative hidden sm:flex items-center"
                       onMouseEnter={() => setShowVolSlider(true)}
                       onMouseLeave={() => setShowVolSlider(false)}>
                       <button onClick={toggleMute}
