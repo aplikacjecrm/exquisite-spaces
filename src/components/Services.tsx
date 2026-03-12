@@ -45,7 +45,7 @@ export default function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="group bg-white rounded-2xl p-7 shadow-sm border border-slate-100 hover:shadow-xl hover:border-zinc-200 hover:-translate-y-1 transition-all duration-300 flex flex-col"
+              className="group bg-white bg-grid-pattern rounded-2xl p-7 shadow-sm border border-slate-100 hover:shadow-xl hover:border-zinc-200 hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
               <div className="flex items-start justify-between mb-5">
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-md`}>
