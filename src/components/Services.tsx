@@ -1,5 +1,5 @@
 "use client";
-import { Flame, Droplets, Radio, Wifi, Zap, ArrowRight } from "lucide-react";
+import { Flame, Droplets, Radio, Wifi, Zap } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 const SERVICE_ICONS = [Flame, Droplets, Radio, Wifi, Zap];
@@ -62,9 +62,6 @@ export default function Services() {
                 {service.title}
               </h3>
               <p className="text-slate-500 leading-relaxed text-sm flex-1">{service.desc}</p>
-              <div className="mt-5 flex items-center gap-1 text-zinc-700 text-sm font-semibold opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                {t.services.learnMore} <ArrowRight size={14} />
-              </div>
             </div>
           ))}
         </div>

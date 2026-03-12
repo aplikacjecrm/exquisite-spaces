@@ -28,20 +28,20 @@ export default function HeroCTA() {
           {/* Brand block */}
           <div className="shrink-0">
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-zinc-600 font-mono text-[11px] tracking-[0.5em] uppercase">// ES-001</span>
-              <span className="w-12 h-px bg-zinc-700" />
-              <span className="text-zinc-600 font-mono text-[11px] tracking-widest">ŻYWIEC · PL</span>
+              <span className="text-zinc-400 font-mono text-[11px] tracking-[0.5em] uppercase">// ES-001</span>
+              <span className="w-12 h-px bg-zinc-500" />
+              <span className="text-zinc-400 font-mono text-[11px] tracking-widest">ŻYWIEC · PL</span>
             </div>
             <h2 className="text-white font-black text-3xl lg:text-4xl tracking-tight leading-none">
               EXQUISITE<br />
-              <span className="text-zinc-500">SPACES</span>
-              <span className="text-zinc-700 text-xl font-normal"> Sp. z o.o.</span>
+              <span className="text-zinc-400">SPACES</span>
+              <span className="text-zinc-500 text-xl font-normal"> Sp. z o.o.</span>
             </h2>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-3">
               {t.heroCta.tags.map((tag, i) => (
                 <span key={tag} className="flex items-center gap-2">
-                  <span className="text-zinc-500 font-mono text-[10px] tracking-[0.25em]">{tag}</span>
-                  {i < 2 && <span className="text-zinc-700 text-xs">·</span>}
+                  <span className="text-zinc-300 font-mono text-[10px] tracking-[0.25em]">{tag}</span>
+                  {i < 2 && <span className="text-zinc-500 text-xs">·</span>}
                 </span>
               ))}
             </div>
@@ -52,7 +52,7 @@ export default function HeroCTA() {
             {stats.map((s) => (
               <div key={s.label} className="px-4 sm:px-6 lg:px-10 text-center first:pl-0 last:pr-0">
                 <div className="text-white font-black text-3xl tabular-nums">{s.value}</div>
-                <div className="text-zinc-600 font-mono text-[10px] tracking-[0.2em] mt-0.5">{s.label}</div>
+                <div className="text-zinc-400 font-mono text-[10px] tracking-[0.2em] mt-0.5">{s.label}</div>
               </div>
             ))}
           </div>
@@ -79,7 +79,7 @@ export default function HeroCTA() {
 
         {/* Bottom tagline */}
         <div className="mt-3 pt-3 border-t border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-zinc-600 font-mono text-xs tracking-[0.3em] uppercase">
+          <p className="text-zinc-400 font-mono text-xs tracking-[0.3em] uppercase">
             {t.heroCta.tagline}
           </p>
         </div>
