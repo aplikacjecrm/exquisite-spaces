@@ -6,7 +6,7 @@ import { useLanguage } from "../context/LanguageContext";
 
 const LANG_IDX: Record<string, number> = { pl: 0, de: 1, fr: 2, en: 3, nl: 4 };
 
-const SUPABASE = "https://yinnyzflmywiplluyyhl.supabase.co/storage/v1/object/public/videos";
+const SUPABASE = "https://yinnyzflmywiplluyyhl.supabase.co/storage/v1/object/public/Film";
 
 const VIDEOS = [
   { lang: "PL", flag: "🇵🇱", src: `${SUPABASE}/Video%20My.mp4`,          title: "Profesjonalizm od podstaw",           subtitle: "Polski" },
