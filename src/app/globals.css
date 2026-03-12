@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Stagger animation delay via CSS custom property */
+.stagger-delay {
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #1E293B;
