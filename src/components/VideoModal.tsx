@@ -365,8 +365,9 @@ function MiniCard({ video, onClick, isFeatured = false }: { video: typeof VIDEOS
       <div className="aspect-video w-full">
         <video
           src={video.src}
+          poster={video.poster}
           className="w-full h-full object-cover"
-          autoPlay muted loop playsInline
+          autoPlay muted loop playsInline preload="none"
           onContextMenu={(e) => e.preventDefault()}
         />
       </div>

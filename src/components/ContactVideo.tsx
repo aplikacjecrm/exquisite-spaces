@@ -52,7 +52,7 @@ export default function ContactVideo() {
           <video
             className="contact-video-height w-full object-cover"
             src="/images/kontakt video.mp4"
-            poster="/images/Hero.png"
+            poster="/images/a1.png"
             autoPlay
             muted
             loop
