@@ -66,18 +66,28 @@ export default function PdfModal({ path, onClose }: { path: string; onClose: () 
   /* ── Fullscreen ── */
   useEffect(() => {
     const onFsChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      setIsFullscreen(!!(document.fullscreenElement || (document as any).webkitFullscreenElement));
       setTimeout(() => calcPageWidth(), 50);
     };
     document.addEventListener("fullscreenchange", onFsChange);
-    return () => document.removeEventListener("fullscreenchange", onFsChange);
+    document.addEventListener("webkitfullscreenchange", onFsChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFsChange);
+      document.removeEventListener("webkitfullscreenchange", onFsChange);
+    };
   }, [calcPageWidth]);
 
   const toggleFullscreen = useCallback(() => {
-    if (!document.fullscreenElement) {
-      modalRef.current?.requestFullscreen().catch(() => {});
+    const isFs = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
+    if (!isFs) {
+      if (modalRef.current?.requestFullscreen) {
+        modalRef.current.requestFullscreen().catch(() => {});
+      } else if ((modalRef.current as any)?.webkitRequestFullscreen) {
+        (modalRef.current as any).webkitRequestFullscreen();
+      }
     } else {
-      document.exitFullscreen().catch(() => {});
+      if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
     }
   }, []);
 
