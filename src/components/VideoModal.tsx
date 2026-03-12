@@ -289,6 +289,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
               } ${isFullscreen ? `flex flex-col justify-center w-full h-full ${showControls ? "cursor-default" : "cursor-none"}` : ""}`}
               onMouseMove={revealControls}
               onMouseEnter={revealControls}
+              onTouchStart={revealControls}
               onContextMenu={(e) => e.preventDefault()}
             >
               {/* Click to play/pause */}
@@ -323,7 +324,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
               <div className={`px-4 py-3 flex flex-col gap-2 transition-opacity duration-300 ${
                 isFullscreen
                   ? `absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent pb-5 pt-10 ${showControls ? "opacity-100" : "opacity-0 pointer-events-none"}`
-                  : "bg-zinc-950/95"
+                  : "bg-zinc-950/95 opacity-100"
               }`}>
                 <div className="flex items-center gap-2">
                   <span className="text-zinc-400 font-mono text-[10px] w-9 text-right flex-shrink-0">{fmt(currentTime)}</span>
