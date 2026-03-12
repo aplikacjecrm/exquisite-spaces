@@ -36,15 +36,19 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
   const containerRef   = useRef<HTMLDivElement>(null);
   const hideTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [isLandscape, setIsLandscape] = useState(false);
+  const [vp, setVp] = useState({ w: 0, h: 0 });
 
   useEffect(() => {
-    const check = () => setIsLandscape(window.innerWidth > window.innerHeight && window.innerHeight < 600);
+    const check = () => setVp({ w: window.innerWidth, h: window.innerHeight });
     check();
-    window.addEventListener("resize", check);
+    window.addEventListener("resize", check, { passive: true });
     window.addEventListener("orientationchange", check);
     return () => { window.removeEventListener("resize", check); window.removeEventListener("orientationchange", check); };
   }, []);
+
+  const isCompact  = vp.w > 0 && vp.w > vp.h && vp.h < 560;  // landscape phone / small tablet
+  const isPhone    = vp.w > 0 && vp.w < 640;                   // phone width
+  const isSmall    = vp.h > 0 && vp.h < 500;                   // very short screen
 
   const open = activeIdx !== null;
   const current = activeIdx !== null ? VIDEOS[activeIdx] : null;
@@ -323,19 +327,19 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-3 sm:p-6"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
         >
-          <div className={`relative w-full max-w-5xl h-[calc(100dvh-1.5rem)] sm:h-[calc(100dvh-2.5rem)] ${isLandscape ? "flex flex-row gap-3" : "flex flex-col gap-2 sm:gap-3"}`}>
+          <div className={`relative w-full max-w-5xl h-[calc(100dvh-1.5rem)] sm:h-[calc(100dvh-2.5rem)] ${isCompact ? "flex flex-row gap-3" : "flex flex-col gap-2 sm:gap-3"}`}>
 
-            {/* Left panel (landscape) or top section (portrait) */}
-            <div className={isLandscape ? "flex flex-col gap-2 w-44 flex-shrink-0" : "flex flex-col gap-2 flex-shrink-0"}>
+            {/* Left panel (compact landscape) or top section (portrait) */}
+            <div className={isCompact ? "flex flex-col gap-2 w-40 flex-shrink-0" : "flex flex-col gap-2 flex-shrink-0"}>
 
             {/* Top bar: title + close */}
             <div className="flex items-start justify-between px-1">
-              <div className={isLandscape ? "" : ""}>
-                {!isLandscape && <div className="text-zinc-600 font-mono text-[9px] tracking-[0.45em] uppercase mb-1">Exquisite Spaces · Film firmowy</div>}
-                <div className={`text-white font-black tracking-tight leading-tight ${isLandscape ? "text-sm" : "text-xl sm:text-2xl"}`}>
+              <div>
+                {!isCompact && <div className="text-zinc-600 font-mono text-[9px] tracking-[0.45em] uppercase mb-1">Exquisite Spaces · Film firmowy</div>}
+                <div className={`text-white font-black tracking-tight leading-tight ${isCompact ? "text-sm" : isPhone ? "text-lg" : "text-xl sm:text-2xl"}`}>
                   {current.title}
                 </div>
-                <div className={`text-zinc-500 mt-0.5 ${isLandscape ? "text-xs" : "text-sm"}`}>{current.flag} {current.subtitle}</div>
+                <div className={`text-zinc-500 mt-0.5 ${isCompact || isPhone ? "text-xs" : "text-sm"}`}>{current.flag} {current.subtitle}</div>
               </div>
               <button
                 onClick={close}
@@ -347,7 +351,7 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
             </div>
 
             {/* Language selector */}
-            <div className={`flex gap-2 overflow-x-auto scrollbar-hide pb-0.5 ${isLandscape ? "flex-col overflow-x-visible overflow-y-auto" : ""}`}>
+            <div className={`flex gap-1.5 sm:gap-2 overflow-x-auto scrollbar-hide pb-0.5 ${isCompact ? "flex-col overflow-x-visible overflow-y-auto flex-1 min-h-0" : ""}`}>
               {VIDEOS.map((v, i) => {
                 const active = i === activeIdx;
                 return (
@@ -355,14 +359,14 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
                     key={v.lang}
                     onClick={() => setActiveIdx(i)}
                     className={`relative flex-shrink-0 flex items-center gap-2 border transition-all duration-200 select-none ${
-                      isLandscape
-                        ? `w-full px-2 py-1.5 rounded-xl flex-row ${active ? "z-10 bg-white border-white text-zinc-900" : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70"}`
-                        : `flex-col px-3 py-2 sm:px-5 sm:py-3 rounded-2xl ${active ? "z-10 bg-white border-white text-zinc-900 shadow-[0_0_24px_rgba(255,255,255,0.18)] scale-105" : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70 hover:text-white hover:border-zinc-500 hover:scale-[1.02]"}`
+                      isCompact
+                        ? `w-full px-2 py-1.5 rounded-xl ${active ? "z-10 bg-white border-white text-zinc-900" : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70"}`
+                        : `flex-col px-2 py-2 sm:px-4 sm:py-3 rounded-2xl ${isPhone ? "" : ""} ${active ? "z-10 bg-white border-white text-zinc-900 shadow-[0_0_24px_rgba(255,255,255,0.18)] scale-105" : "z-0 bg-zinc-800/50 border-zinc-700/60 text-zinc-500 hover:bg-zinc-700/70 hover:text-white hover:border-zinc-500 hover:scale-[1.02]"}`
                     }`}
                   >
-                    <span className={isLandscape ? "text-base leading-none" : "text-2xl sm:text-3xl leading-none"}>{v.flag}</span>
-                    <span className={`font-black tracking-[0.15em] ${isLandscape ? "text-[10px]" : "text-[10px] sm:text-[11px] mt-0.5 sm:mt-1"} ${active ? (isLandscape ? "text-zinc-900" : "text-zinc-900") : "text-zinc-300"}`}>{v.lang}</span>
-                    {!isLandscape && <span className={`text-[9px] sm:text-[10px] font-medium ${active ? "text-zinc-500" : "text-zinc-600"}`}>{v.subtitle}</span>}
+                    <span className={isCompact ? "text-base leading-none" : isPhone ? "text-xl leading-none" : "text-2xl sm:text-3xl leading-none"}>{v.flag}</span>
+                    <span className={`font-black tracking-[0.15em] text-[10px] ${!isCompact ? "mt-0.5" : ""} ${active ? "text-zinc-900" : "text-zinc-300"}`}>{v.lang}</span>
+                    {!isCompact && !isSmall && <span className={`text-[9px] font-medium ${active ? "text-zinc-500" : "text-zinc-600"}`}>{v.subtitle}</span>}
                   </button>
                 );
               })}
