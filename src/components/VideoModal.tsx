@@ -42,8 +42,12 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
   const close = () => { setActiveIdx(null); setCurrentTime(0); setDuration(0); };
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
     if (open) {
+      const scrollY = window.scrollY;
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       setTimeout(() => {
         if (modalRef.current) {
           modalRef.current.currentTime = 0;
@@ -53,10 +57,23 @@ export default function VideoModal({ bottomCta }: { bottomCta?: import("react").
         }
       }, 80);
     } else {
+      const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
       modalRef.current?.pause();
       setPlaying(false);
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      if (scrollY) window.scrollTo(0, scrollY);
+    };
   }, [open, activeIdx]);
 
   useEffect(() => {
