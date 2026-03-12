@@ -195,15 +195,13 @@ export default function Portfolio() {
                   <span className="text-zinc-400 font-mono text-[9px] tracking-[0.4em] uppercase block mb-1">{activeBrochure.label}</span>
                   <span className="text-white font-bold text-sm leading-tight line-clamp-2">{activeBrochure.title}</span>
                 </div>
-                <a
-                  href={activeBrochure.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => setPdfOpen(activeBrochure.file)}
                   className="flex-shrink-0 ml-3 flex items-center gap-2 bg-white text-zinc-900 px-4 py-2 rounded-xl font-bold text-xs shadow-xl transition-all hover:bg-zinc-100"
                 >
                   <Eye size={13} />
                   {t.portfolio.btnPreview}
-                </a>
+                </button>
               </div>
             </div>
 
@@ -234,20 +232,11 @@ export default function Portfolio() {
               </div>
               <button
                 onClick={() => setPdfOpen(activeBrochure.file)}
-                className="hidden lg:flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all border border-zinc-700/60 flex-shrink-0"
+                className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all border border-zinc-700/60 flex-shrink-0"
               >
                 <Eye size={13} />
                 {t.portfolio.btnPreview}
               </button>
-              <a
-                href={activeBrochure.file}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="lg:hidden flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all border border-zinc-700/60 flex-shrink-0"
-              >
-                <Eye size={13} />
-                {t.portfolio.btnPreview}
-              </a>
             </div>
           </div>
 

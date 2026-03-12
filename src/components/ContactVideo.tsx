@@ -71,8 +71,8 @@ export default function ContactVideo() {
             <span className="text-white/60 font-mono text-[10px] tracking-widest uppercase">Exquisite Spaces</span>
           </div>
 
-          {/* Bottom contact cards — sm+ only, overlaid on video */}
-          <div className="hidden sm:block absolute bottom-0 left-0 right-0 p-5 lg:p-8">
+          {/* Bottom contact cards — desktop only, overlaid on video */}
+          <div className="hidden lg:block absolute bottom-0 left-0 right-0 p-5 lg:p-8">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {contactCards.map((card, i) => (
                 <a
@@ -99,8 +99,8 @@ export default function ContactVideo() {
           </div>
         </div>
 
-        {/* Mobile contact cards — below the video */}
-        <div className="sm:hidden grid grid-cols-2 gap-3 mt-4">
+        {/* Mobile + tablet contact cards — below the video */}
+        <div className="lg:hidden grid grid-cols-2 gap-3 mt-4">
           {contactCards.map((card, i) => (
             <a
               key={card.label}

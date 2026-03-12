@@ -24,7 +24,7 @@ export default function About() {
               <img
                 src="/images/d.png"
                 alt="Exquisite Spaces – siedziba firmy, Żywiec"
-                className="w-full h-80 lg:h-[500px] object-cover object-top transition-all duration-500 group-hover/card:brightness-[0.82]"
+                className="w-full h-80 lg:h-[500px] object-cover object-center sm:object-top transition-all duration-500 group-hover/card:brightness-[0.82]"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/80 to-transparent p-6">
                 <div className="text-white font-bold text-xl">{t.about.locationTitle}</div>

@@ -74,7 +74,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
   const catImg  = catCfg.imgKey ? imgs[catCfg.imgKey] : null;
 
   const NavBar = () => (
-    <div className="lg:hidden mt-10 flex items-center justify-between gap-4 pt-8 border-t border-zinc-100">
+    <div className="hidden mt-10 flex items-center justify-between gap-4 pt-8 border-t border-zinc-100">
       <button
         onClick={() => setActive((i) => Math.max(i - 1, 0))}
         disabled={active === 0}
@@ -134,7 +134,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="hidden lg:flex w-11 h-11 items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+                className="flex w-11 h-11 items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
                 aria-label="Zamknij"
               >
                 <X size={20} />
@@ -191,8 +191,8 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
               {/* Main */}
               <main ref={mainRef} className="flex-1 overflow-y-auto bg-white scrollbar-hide">
 
-                {/* Mobile category pills — hidden, navigation via bottom prev/next */}
-                <div className="hidden gap-2 overflow-x-auto px-4 py-3 border-b border-zinc-100 bg-zinc-50 scrollbar-none">
+                {/* Mobile + tablet category pills — top navigation strip */}
+                <div className="flex lg:hidden gap-2 overflow-x-auto px-4 py-3 border-b border-zinc-100 bg-zinc-50 scrollbar-hide">
                   {am.categories.map((c, i) => (
                     <button
                       key={i}
@@ -206,7 +206,7 @@ export default function AboutModal({ externalOpen, onExternalClose, label, fullW
                   ))}
                 </div>
 
-                <div className="max-w-3xl mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+                <div className="max-w-3xl mx-auto px-5 sm:px-8 lg:px-12 pt-8 pb-28 lg:py-12">
 
                   {/* Doc header */}
                   <div className="mb-8">
